@@ -1,0 +1,52 @@
+
+#postsArea{
+    margin: 50px 10%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.posts{
+    position: relative;
+    padding: 5px;
+    border: 1px solid grey;
+    background-color: #f5f5dcb3;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.posts:hover .hidden{
+    display: block;
+}
+
+.hidden{
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    overflow-y: auto;
+    left: 20%;
+    top: 60%;
+    background-color: lightgreen;
+    z-index: 5;
+}
+
+#comment-heading{
+    margin: 0;
+}
+
+.post-title, .post-body, .comment-body{
+    text-align: justify;
+}
+
+.comment-body, .commentor-email{
+    margin: 5px;
+}
+.commentor-email{
+    font-size: 0.8em;
+    font-weight: 600;
+}
+.comment-body{
+    font-size: 0.8em;
+    padding-left: 20px;
+}
