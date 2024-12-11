@@ -9,6 +9,10 @@
     justify-content: center;
 }
 
+li{
+    cursor: pointer;
+}
+
 @keyframes blink {
     0% {
         color: #242424;
