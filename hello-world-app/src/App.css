@@ -1,0 +1,20 @@
+.dots{
+    animation: blink 500ms ease 500ms infinite forwards alternate;
+}
+
+.text-box{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes blink {
+    0% {
+        color: #242424;
+    }
+    100% {
+        color: white;
+    }
+    
+}
