@@ -81,3 +81,22 @@ thead{
     background-color: #4e54c8;
     color: white;
 }
+
+.head{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.head select{
+    width: 10rem;
+    height: 2rem;
+    font-size: 1.25rem;
+    background-color: #4e54c8;
+    color: white;
+}
+
+.title{
+    color: #202020;
+}
