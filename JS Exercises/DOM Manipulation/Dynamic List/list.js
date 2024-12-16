@@ -24,10 +24,8 @@ document.getElementById("titleForm").addEventListener("submit", (e) => {
 const addListItem = (e, nextTo = false) => {
     const li = document.createElement("li");
     let item;
-    do{
-        item = prompt("Enter List Value: ");
-        if(item?.trim()) break;
-    }while(true);
+    item = prompt("Enter List Value: ");
+    if(!item?.trim()) return;
     li.innerText = item.trim();
     const addButton = document.createElement("button");
     addButton.innerText = "+";
