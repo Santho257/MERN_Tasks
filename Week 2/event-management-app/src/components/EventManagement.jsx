@@ -43,9 +43,6 @@ const EventManagement = () => {
                 attendance: false
             })
         }
-        else {
-            alert("Not registered")
-        }
     }
 
     return (
