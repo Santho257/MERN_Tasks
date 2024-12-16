@@ -1,5 +1,7 @@
+import EventManagement from "./components/EventManagement";
+
 const App = () => {
-  return <></>;
+  return <EventManagement />;
 }
 
 export default App;
