@@ -28,7 +28,7 @@ const AttendeesTable = ({ attendees }) => {
                         return (filter === "") ? true
                             : (filter == "true") ? attendee.attendance == true
                                 : attendee.attendance == false;
-                    }).map((attendee, i) => <tr key={i}>
+                    }).map((attendee, i) => <tr key={attendee.email}>
                         <td>{i + 1}</td>
                         <td>{attendee.email}</td>
                         <td>{attendee.name}</td>
