@@ -1,16 +1,51 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const AttendeesTable = ({ attendees }) => {
+const AttendeesTable = () => {
     const [filter, setFilter] = useState("");
+    const [food, setFood] = useState("");
+    const [attendees, setAttendees] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            setAttendees((await JSON.parse(localStorage.getItem("attendees"))) ?? []);
+        }
+        )()
+    }, []);
+
+    useEffect(() => {
+        (async () => {
+            const newAttendees = (await JSON.parse(localStorage.getItem("attendees"))) ?? [];
+            if (filter === "" && food === "") {
+                setAttendees(newAttendees);
+            }
+            else if(filter && food){
+                setAttendees(newAttendees.filter(atten => String(atten.attendance) === filter && atten.food == food));
+            }
+            else if(food){
+                setAttendees(newAttendees.filter(atten => atten.food === food));
+            }
+            else{
+                setAttendees(newAttendees.filter(atten => String(atten.attendance) === filter));
+            }
+        })()
+    }, [filter, food])
+
     return (
         <section id='attendees-area'>
             <section className='head'>
                 <h4 className="title">Attendees List</h4>
-                <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-                    <option value={""}>All</option>
-                    <option value={false}>Absentees</option>
-                    <option value={true}>Present</option>
-                </select>
+                <article>
+                    <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+                        <option value={""}>All</option>
+                        <option value={true}>Present</option>
+                        <option value={false}>Absentees</option>
+                    </select>
+                    <select value={food} onChange={(e) => setFood(e.target.value)}>
+                        <option value={""}>All</option>
+                        <option value={"veg"}>Veg</option>
+                        <option value={"non-veg"}>Non-Veg</option>
+                    </select>
+                </article>
             </section>
             <table>
                 <thead>
@@ -24,11 +59,7 @@ const AttendeesTable = ({ attendees }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {attendees.filter(attendee => {
-                        return (filter === "") ? true
-                            : (filter == "true") ? attendee.attendance == true
-                                : attendee.attendance == false;
-                    }).map((attendee, i) => <tr key={attendee.email}>
+                    {attendees.map((attendee, i) => <tr key={attendee.email}>
                         <td>{i + 1}</td>
                         <td>{attendee.email}</td>
                         <td>{attendee.name}</td>
