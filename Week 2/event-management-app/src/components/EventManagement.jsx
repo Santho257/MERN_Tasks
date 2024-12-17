@@ -16,9 +16,7 @@ const EventManagement = () => {
                     </ul>
                 </nav>
             </header>
-            {(registerPage) ? <RegisterForm /> : <>
-                <AttendeesTable />
-            </>}
+            {(registerPage) ? <RegisterForm /> : <AttendeesTable />}
         </>
     )
 }
