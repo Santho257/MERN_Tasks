@@ -3,10 +3,14 @@ import imgSrc from "./assets/londonstreet.jpg";
 import FlexWrapper from "./components/CSS-In-JS/FlexWrapper";
 import DynamicButton from "./components/CSS-In-JS/DynamicButton";
 import CreateButton from "./components/CreateButton";
+import CreateCard from "./components/CreateCard";
 const App = () => {
     return (
         <>
-            <CreateButton />
+            <FlexWrapper>
+                <CreateButton/>
+                <CreateCard />
+            </FlexWrapper>
         </>
     );
 }
