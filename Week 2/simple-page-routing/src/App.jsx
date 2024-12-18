@@ -1,5 +1,7 @@
-import { Link, Route, Routes } from "react-router-dom"
+import { Link, NavLink, Route, Routes } from "react-router-dom"
 import Home from "./components/Home"
+import Contact from "./components/Contact"
+import About from "./components/About"
 
 const App = () => {
   return (
@@ -8,7 +10,7 @@ const App = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
               <Link to="/about">About</Link>
@@ -21,6 +23,8 @@ const App = () => {
       </header>
       <Routes>
         <Route path="/" element={<Home />} /> 
+        <Route path="/about" element={<About />} /> 
+        <Route path="/contact" element={<Contact />} /> 
       </Routes>
     </>
   )
