@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from './createButton.module.css';
 import DynamicButton from './CSS-In-JS/DynamicButton'
+import FlexWrapper from "./CSS-In-JS/FlexWrapper";
 
 const CreateButton = () => {
     const [form, setForm] = useState({
@@ -22,7 +23,7 @@ const CreateButton = () => {
         setForm({ ...form, [key]: value });
     }
     return (
-        <>
+        <section>
             <form onSubmit={createButton} className={styles.form}>
                 <label className={styles.label} htmlFor="variant">Variant</label>
                 <select className={styles.select} name="variant" id="variant" value={form.variant} onChange={
@@ -52,15 +53,15 @@ const CreateButton = () => {
                 } />
                 <DynamicButton className={styles.button} type="submit" variant={"primary"} size={"m"}>Create</DynamicButton>
             </form>
-            <ul>
+            <FlexWrapper styles={{width: "45vw",margin: "auto 2rem"}}>
                 {
                     createdButtons.map((button) => {
-                        return (<li key={button.count}>
-                            <DynamicButton className={styles.button} variant={button.variant} size={button.size}>{button.content}</DynamicButton>
-                        </li>)
+                        return (
+                            <DynamicButton styles={{margin: "1rem 0.5rem"}} key={button.count} variant={button.variant} size={button.size}>{button.content}</DynamicButton>
+                        )
                     })
-                }</ul>
-        </>
+                }</FlexWrapper>
+        </section>
     )
 }
 
