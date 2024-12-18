@@ -4,8 +4,8 @@ const CardElement = ({ children, styles, ...rest }) => {
         flexDirection: "column",
         width: "30%",
         height: "300px",
-        padding: "20px",
-        margin: "10px 1%",
+        padding: "10px 1%",
+        margin: "10px 10px",
         borderRadius: "20px",
         border: "1px solid #8f94fb",
         alignItems: "center",
@@ -19,8 +19,8 @@ const CardElement = ({ children, styles, ...rest }) => {
 }
 export const Img = ({children, src, styles, ...rest}) => {
     const imgStyles = {
-        width: "calc(100% - 40px)",
-        height: "50%",
+        width: "calc(100% - 2px)",
+        height: "40%",
         borderRadius: "10px",
         ...styles
     }
@@ -29,7 +29,7 @@ export const Img = ({children, src, styles, ...rest}) => {
 
 export const Title = ({children, styles, ...rest}) => {
     const titleStyles = {
-        margin: "20px 0",
+        margin: "10px 0",
         padding: "5px",
         color: "#4e54c8",
         border: "1px solid grey",
