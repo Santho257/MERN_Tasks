@@ -1,5 +1,5 @@
 *{
-    box-sizing: content-box;
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -9,27 +9,27 @@ h1{
 }
 h2{
     font-size: 2rem;
-    line-height: 2.35rem;
+    line-height: 2.10rem;
 }
 h3{
     font-size: 1.75rem;
-    line-height: 2.35rem;
+    line-height: 1.85rem;
 }
 h4{
     font-size: 1.5rem;
-    line-height: 2.35rem;
+    line-height: 1.6rem;
 }
 h5{
     font-size: 1.25rem;
-    line-height: 2.35rem;
+    line-height: 1.35rem;
 }
 h6{
     font-size: 1rem;
-    line-height: 2.35rem;
+    line-height: 1.15rem;
 }
 p{
     font-size: 1rem;
-    line-height: 2.35rem;
+    line-height: 1.10rem;
 }
 a{
     text-decoration: none;
