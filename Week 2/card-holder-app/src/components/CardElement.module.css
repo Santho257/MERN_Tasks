@@ -6,20 +6,20 @@
     padding: 20px;
     margin: 10px 1%;
     border-radius: 10px;
-    border: 10px solid green;
+    border: 1px solid #8f94fb;
     align-items: center;
 }
 
 .cardImg {
     width: calc(100% - 40px);
-    height: 30%;
+    height: 50%;
     border-radius: 10px;
 }
 
 .cardTitle {
     margin: 20px 0;
     padding: 5px;
-    color: green;
+    color: #4e54c8;
     border: 1px solid grey;
 }
 
