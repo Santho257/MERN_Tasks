@@ -25,3 +25,5 @@ dist-ssr
 
 #Unwanted Images
 src/assets/
+Test.css
+Test.module.css
