@@ -1,0 +1,49 @@
+.current{
+    flex-basis: 73%;
+    height: 100%;
+    width: 100%;
+}
+
+.searchForm{
+    height: 5rem;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.input{
+    padding: 0.2rem 1rem 0.2rem 1.75rem;
+    width: 90%;
+    height: 2rem;
+    border-radius: 1rem;
+    font-weight: 100;
+    letter-spacing: 0.08rem;
+    font-size: 1rem;
+    outline: none;
+    border: 1px solid transparent;
+    transition: border-color 0.25s; 
+}
+.input:focus{
+    font-weight: 500;
+    border-color: #3b03f5;
+}
+.button{
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    width: 1.5rem;
+    height: 1.5rem;
+    left: calc(5% + 0.2rem);
+    cursor: pointer;
+}
+
+.mainContent{
+    background-color: #c4e1ff;
+    border-radius: 2rem;
+    margin: auto;
+    padding: 2rem;
+    width: 90%;
+    height: 40%;
+}
+
