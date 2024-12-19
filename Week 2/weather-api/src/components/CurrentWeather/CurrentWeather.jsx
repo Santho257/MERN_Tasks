@@ -1,17 +1,15 @@
 import { useState } from "react";
 import styles from "./CurrentWeather.module.css";
 import { useEffect } from "react";
-import axios from "axios";
-import { BASE_URL } from "../../constants";
+import axios from "axios"
 import { API_KEY } from "../../private";
+import { BASE_URL } from "../../constants";
+import DetailsArea from "./DetailsArea";
 
 const CurrentWeather = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [error, setError] = useState({});
     const [weatherDetails, setWeatherDetails] = useState({});
-    const searchLocation = e => {
-        e.preventDefault();
-    }
 
     useEffect(() => {
         fetchData();
@@ -44,8 +42,9 @@ const CurrentWeather = () => {
             setError(error);
         }
     }
-
-
+    const searchLocation = e => {
+        e.preventDefault();
+    }
     return (
         <section className={styles.current}>
             <form onSubmit={searchLocation} className={styles.searchForm}>
@@ -60,6 +59,12 @@ const CurrentWeather = () => {
                     </svg>
                 </button>
             </form>
+            <section className={styles.mainContent}>
+                <DetailsArea weather={weatherDetails}/>
+                <section className={styles.imageArea}>
+                    {weatherDetails.current && <img src={weatherDetails.current.condition.icon} />}
+                </section>
+            </section>
         </section>
     );
 }

@@ -45,5 +45,24 @@
     padding: 2rem;
     width: 90%;
     height: 40%;
+    display: flex;
 }
+
+.imageArea{
+    width: 48%;
+    height: 95%;
+    margin: 0 1%;
+    border-radius: 1rem;
+    padding: 1rem;
+    background-color: #d5eaff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageArea img{
+    width: 15rem;
+    height: 15rem;
+}
+
 
