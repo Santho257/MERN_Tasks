@@ -35,7 +35,7 @@ const Weather = () => {
             }
         }
         try {
-            const result = await axios(`${BASE_URL}/forecast.json?q=${location}&key=${API_KEY}`);
+            const result = await axios(`${BASE_URL}/forecast.json?q=${location}&days=${3}&key=${API_KEY}`);
             if (result.data) {
                 setWeatherDetails(result.data)
             }
