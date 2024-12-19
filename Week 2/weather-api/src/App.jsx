@@ -1,10 +1,7 @@
-import CurrentWeather from "./components/CurrentWeather/CurrentWeather"
-import styles from './App.module.css';
+import Weather from "./components/Weather/Weather";
 const App = () => {
     return (
-        <section className={styles.flexArea}>
-            <CurrentWeather />
-        </section>
+        <Weather />
     )
 }
 

@@ -1,0 +1,48 @@
+.flexArea{
+    display: flex;
+    height: 100vh;
+    overflow: scroll;
+    justify-content: space-between;
+    scrollbar-width: none;
+}
+
+.current{
+    flex-basis: 74%;
+    height: 100%;
+    width: 100%;
+    border-right: 2px solid grey;
+    background-color: white;
+}
+
+.searchForm{
+    height: 5rem;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.input{
+    padding: 0.2rem 1rem 0.2rem 1.75rem;
+    width: calc(90% - 4rem);
+    height: 2rem;
+    font-weight: 100;
+    letter-spacing: 0.08rem;
+    font-size: 1rem;
+    outline: none;
+    border: 1px solid transparent;
+    transition: border-color 0.25s; 
+}
+.input:focus{
+    font-weight: 500;
+    border-bottom-color: grey;
+}
+.button{
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    width: 1.5rem;
+    height: 1.5rem;
+    left: calc(5% + 2.2rem);
+    cursor: pointer;
+}
