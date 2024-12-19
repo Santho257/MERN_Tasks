@@ -14,9 +14,8 @@
 
 .input{
     padding: 0.2rem 1rem 0.2rem 1.75rem;
-    width: 90%;
+    width: calc(90% - 4rem);
     height: 2rem;
-    border-radius: 1rem;
     font-weight: 100;
     letter-spacing: 0.08rem;
     font-size: 1rem;
@@ -26,7 +25,7 @@
 }
 .input:focus{
     font-weight: 500;
-    border-color: #3b03f5;
+    border-bottom-color: grey;
 }
 .button{
     position: absolute;
@@ -34,18 +33,18 @@
     background-color: transparent;
     width: 1.5rem;
     height: 1.5rem;
-    left: calc(5% + 0.2rem);
+    left: calc(5% + 2.2rem);
     cursor: pointer;
 }
 
 .mainContent{
-    background-color: #c4e1ff;
-    border-radius: 2rem;
-    margin: auto;
-    padding: 2rem;
     width: 90%;
     height: 40%;
     display: flex;
+    border-radius: 2rem;
+    background-color: #c4e1ff;
+    margin: auto;
+    padding: 2rem;
 }
 
 .imageArea{
@@ -65,4 +64,31 @@
     height: 15rem;
 }
 
+.extraDetail{
+    width: 90%;
+    height: 40%;
+    margin: 2rem auto;
+    gap: 1rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
+}
+
+.extraContent{
+    width: 95%;
+    height: 90%;
+    margin: auto;
+    background-color: #ecf2f7;  
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: #1b1f21;
+    letter-spacing: 0.2rem;
+}
+
+.extraContent p{
+    color: #aeb2b6;
+    font-size: 0.75em;
+}

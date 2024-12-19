@@ -5,6 +5,7 @@ import axios from "axios"
 import { API_KEY } from "../../private";
 import { BASE_URL } from "../../constants";
 import DetailsArea from "./DetailsArea";
+import ExtraContent from "./ExtraContent";
 
 const CurrentWeather = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -32,6 +33,7 @@ const CurrentWeather = () => {
                 return;
             }
         }
+        console.log(location);
         try {
             const result = await axios(`${BASE_URL}/current.json?q=${location}&key=${API_KEY}`);
             if (result.data) {
@@ -42,8 +44,9 @@ const CurrentWeather = () => {
             setError(error);
         }
     }
-    const searchLocation = e => {
+    const searchLocation = async e => {
         e.preventDefault();
+        await fetchData(searchTerm);
     }
     return (
         <section className={styles.current}>
@@ -59,11 +62,19 @@ const CurrentWeather = () => {
                     </svg>
                 </button>
             </form>
+
             <section className={styles.mainContent}>
                 <DetailsArea weather={weatherDetails}/>
                 <section className={styles.imageArea}>
                     {weatherDetails.current && <img src={weatherDetails.current.condition.icon} />}
                 </section>
+            </section>
+            
+            <section className={styles.extraDetail}>
+                <ExtraContent title="Wind" display="Today wind speed" result={weatherDetails?.current?.wind_kph} unit="kph"/>
+                <ExtraContent title="Percipitation" display="Today percipitation" result={weatherDetails?.current?.precip_mm} unit="mm"/>
+                <ExtraContent title="Pressure" display="Today's Pressure" result={weatherDetails?.current?.wind_kph} unit="hpa"/>
+                <ExtraContent title="UV Index" display="Today UV Index" result={weatherDetails?.current?.uv} unit=""/>
             </section>
         </section>
     );
