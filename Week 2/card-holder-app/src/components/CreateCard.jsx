@@ -55,6 +55,7 @@ const CreateCard = () => {
     }
     return (
         <section>
+            <h2 className={styles.title}>Create Card</h2>
             <form onSubmit={createCard} className={styles.form} encType='multipart/formdata'>
                 <label className={styles.label} htmlFor="title">Title</label>
                 <sup style={{ color: "red" }}>{error.title}</sup>
@@ -71,7 +72,7 @@ const CreateCard = () => {
                 <sub style={{ marginLeft: "10%" }}>{form.img.name ?? ""}</sub>
                 <DynamicButton className={styles.button} type="submit" variant={"primary"} size={"m"}>Create</DynamicButton>
             </form>
-            <FlexWrapper styles={{width: "45vw",margin: "auto 2rem"}}>
+            <FlexWrapper styles={{margin: "auto 2rem"}}>
                 {
                     createdCards.map((card) => {
                         return (

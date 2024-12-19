@@ -24,6 +24,7 @@ const CreateButton = () => {
     }
     return (
         <section>
+            <h2 className={styles.title}>Create Button</h2>
             <form onSubmit={createButton} className={styles.form}>
                 <label className={styles.label} htmlFor="variant">Variant</label>
                 <select className={styles.select} name="variant" id="variant" value={form.variant} onChange={
@@ -53,7 +54,7 @@ const CreateButton = () => {
                 } />
                 <DynamicButton className={styles.button} type="submit" variant={"primary"} size={"m"}>Create</DynamicButton>
             </form>
-            <FlexWrapper styles={{width: "45vw",margin: "auto 2rem"}}>
+            <FlexWrapper styles={{margin: "auto 2rem"}}>
                 {
                     createdButtons.map((button) => {
                         return (
