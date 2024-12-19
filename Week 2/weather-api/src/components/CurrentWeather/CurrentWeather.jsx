@@ -1,15 +1,55 @@
 import { useState } from "react";
 import styles from "./CurrentWeather.module.css";
+import { useEffect } from "react";
+import axios from "axios";
+import { BASE_URL } from "../../constants";
+import { API_KEY } from "../../private";
 
 const CurrentWeather = () => {
     const [searchTerm, setSearchTerm] = useState("");
+    const [error, setError] = useState({});
+    const [weatherDetails, setWeatherDetails] = useState({});
     const searchLocation = e => {
         e.preventDefault();
     }
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    const fetchData = async location => {
+        if (!location) {
+            try {
+                const ip = await axios("https://ipinfo.io/json");
+                if (ip.data) {
+                    location = ip.data.ip;
+                }
+                else {
+                    setError({ ...error, message: "Cannot fetch IP!" });
+                    return;
+                }
+            }
+            catch (error) {
+                setError({ ...error, message: "Cannot fetch IP!" });
+                return;
+            }
+        }
+        try {
+            const result = await axios(`${BASE_URL}/current.json?q=${location}&key=${API_KEY}`);
+            if (result.data) {
+                setWeatherDetails(result.data)
+            }
+        }
+        catch (error) {
+            setError(error);
+        }
+    }
+
+
     return (
         <section className={styles.current}>
             <form onSubmit={searchLocation} className={styles.searchForm}>
-                <input className={styles.input} placeholder="search..." type="search" value={searchTerm} onChange={e => setSearchTerm(e.target.value)}/>
+                <input className={styles.input} placeholder="search..." type="search" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
                 <button className={styles.button} type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 48 48">
                         <path fill="#616161" d="M34.6 28.1H38.6V45.1H34.6z" transform="rotate(-45.001 36.586 36.587)"></path>
