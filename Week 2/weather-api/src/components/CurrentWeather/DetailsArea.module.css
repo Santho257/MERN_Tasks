@@ -1,0 +1,52 @@
+.detailsArea{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.locationDetails, .otherDetails{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    color: #416c96;
+    align-items: center;
+    flex-basis: 10%;
+}
+
+.locationDetails h6{
+    letter-spacing: 0.1rem;
+    font-size: 1.75rem;
+}
+
+.tempDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    color: #24609b;
+    align-items: center;
+    flex-basis: 70%;
+}
+
+.tempDetails h1{
+    font-size: 5rem;
+    margin: 0.5rem auto;
+}
+
+.tempDetails h1 sub{
+    font-size: 4rem;
+    position: relative;
+    right: 1rem;
+    bottom: 0.7rem;
+}
+
+.tempDetails p, .otherDetails p{
+    margin: 0.5rem;
+}
+
+.otherDetails section{
+    display: flex;
+}
+.otherDetails svg{
+    width: 1rem;
+}
