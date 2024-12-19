@@ -1,0 +1,6 @@
+.flexArea{
+    display: flex;
+    height: 100vh;
+    overflow: scroll;
+    scrollbar-width: none;
+}
