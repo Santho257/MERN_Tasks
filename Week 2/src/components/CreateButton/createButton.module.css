@@ -10,7 +10,7 @@
 .form{
     display: flex;
     margin: auto;
-    width: 95vw;
+    width: 45vw;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;

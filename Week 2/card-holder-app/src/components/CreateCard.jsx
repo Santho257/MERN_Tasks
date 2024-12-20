@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import CardElement, { Description, Img, Title } from './CardElement';
 import styles from './CreateCard.module.css';
-import FlexWrapper from './CSS-In-JS/FlexWrapper.jsx'
-import DynamicButton from './CSS-In-JS/DynamicButton.jsx';
+import FlexWrapper from './CSS-In-JS/FlexWrapper.jsx';
 
 const CreateCard = () => {
     const [form, setForm] = useState({
@@ -70,9 +69,9 @@ const CreateCard = () => {
                 <sup style={{ color: "red" }}>{error.img}</sup>
                 <input className={styles.input} type="file" accept='image/*' name="img" id="img" onChange={handleImageChange} />
                 <sub style={{ marginLeft: "10%" }}>{form.img.name ?? ""}</sub>
-                <DynamicButton className={styles.button} type="submit" variant={"primary"} size={"m"}>Create</DynamicButton>
+                <button className={styles.button} type="submit" >Create</button>
             </form>
-            <FlexWrapper styles={{margin: "auto 2rem"}}>
+            <FlexWrapper styles={{width: "100%",margin: "auto 2rem", justify: "center"}} >
                 {
                     createdCards.map((card) => {
                         return (
