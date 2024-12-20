@@ -17,6 +17,10 @@
     letter-spacing: 0.1rem;
     font-size: 1.75rem;
 }
+.locationDetails h6 span{
+    letter-spacing: 0.1rem;
+    font-size: 0.75rem;
+}
 
 .tempDetails{
     display: flex;

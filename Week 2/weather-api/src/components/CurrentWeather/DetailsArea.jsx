@@ -3,7 +3,7 @@ const DetailsArea = ({ weather }) => {
     return (
         <section className={styles.detailsArea}>
             <section className={styles.locationDetails}>
-                <h6>{weather?.location?.name}</h6>
+                <h6>{weather?.location?.name}<span>,{weather?.location?.country}</span></h6>
                 <p>{weather?.location?.localtime}</p>
             </section>
             <section className={styles.tempDetails}>
