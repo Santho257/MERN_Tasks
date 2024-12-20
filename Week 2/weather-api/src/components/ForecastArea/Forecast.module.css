@@ -5,6 +5,7 @@
     overflow-y: auto;
     scrollbar-width: none;
     background-color: white;
+    color: #36363e;
 }
 
 .title{
@@ -25,7 +26,8 @@
 }
 .heading{
     width: 100%;
-    text-align: center;
+    text-align: left;
+    padding: 0.5rem 2rem;
     background-color: white;
     position: sticky;
     top: 0;
