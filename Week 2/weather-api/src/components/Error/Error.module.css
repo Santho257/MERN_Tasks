@@ -1,11 +1,21 @@
 .errorContainer{
     display: flex;
+    flex-direction: column;
     width: calc(100% - 4rem);
     height: calc(100vh - 10rem);
     margin: 2rem;
-    background-color: #fff;
+    background-color: #c4e1ff;
     justify-content: center;
     align-items: center;
-    color: red;
     border-radius: 2rem;
+}
+
+.errorText{
+    color: #416c96;
+}
+
+.errorLink{
+    margin: 2rem 1rem;
+    font-size: 1.2rem;
+    color: #24609b;
 }

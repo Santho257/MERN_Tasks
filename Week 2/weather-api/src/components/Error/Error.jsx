@@ -5,7 +5,7 @@ const Error = ({ error }) => {
     console.log(error);
     return (
         <section className={styles.errorContainer}>
-            <h1>{message}</h1>
+            <h1 className={styles.errorText}>{message}</h1>
         </section>
     )
 }
