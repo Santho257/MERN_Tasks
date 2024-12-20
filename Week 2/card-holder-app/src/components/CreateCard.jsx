@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import CardElement, { Description, Img, Title } from './CardElement';
-import styles from './createButton.module.css';
+import styles from './CreateCard.module.css';
 import FlexWrapper from './CSS-In-JS/FlexWrapper.jsx'
 import DynamicButton from './CSS-In-JS/DynamicButton.jsx';
 
