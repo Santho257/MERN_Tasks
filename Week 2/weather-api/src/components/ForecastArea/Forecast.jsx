@@ -8,9 +8,6 @@ const Forecast = ({ forecast, time }) => {
     }, [forecast])
     return (
         <section className={styles.forecast}>
-            <section className={styles.title}>
-                <h5>Next 3 days Forecast</h5>
-            </section>
             <section className={styles.today} id='today'>
                 <h3 className={styles.heading} id='heading'>Today</h3>
                 <section className={styles.hours}>

@@ -1,7 +1,7 @@
 .flexArea{
     display: flex;
     font-family: sans-serif ;
-    height: 100vh;
+    height: calc(100vh - 5rem);
     overflow: scroll;
     justify-content: space-between;
     scrollbar-width: none;

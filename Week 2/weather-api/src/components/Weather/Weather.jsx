@@ -7,6 +7,7 @@ import Forecast from "../ForecastArea/Forecast";
 import { API_KEY } from "../../private.js"
 import { BASE_URL } from "../../constants.js"
 import Loading from "../Loading/Loading.jsx";
+import Error from "../Error/Error.jsx";
 
 const Weather = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -19,6 +20,7 @@ const Weather = () => {
     }, [])
 
     const fetchData = async location => {
+        setError({});
         setLoading(true);
         if (!location) {
             try {
@@ -28,11 +30,13 @@ const Weather = () => {
                 }
                 else {
                     setError({ message: "Cannot fetch IP!" });
+                    setLoading(false)
                     return;
                 }
             }
             catch (err) {
-                setError({ ...err});
+                setError({ ...err });
+                setLoading(false)
                 return;
             }
         }
@@ -43,9 +47,9 @@ const Weather = () => {
                 setLoading(false);
             }
         }
-        catch (error) {
-            console.log(error)
-            setError(error?.response?.data);
+        catch (err) {
+            setError({...(err?.response?.data || err)});
+            setLoading(false)
         }
     }
     const searchLocation = async e => {
@@ -53,10 +57,9 @@ const Weather = () => {
         await fetchData(searchTerm);
     }
     return (
-        loading 
-        ? <Loading />
-        : <section className={styles.flexArea}>
-            <section className={styles.current}>
+        loading
+            ? <Loading />
+            : <>
                 <form onSubmit={searchLocation} className={styles.searchForm}>
                     <input className={styles.input} placeholder="search..." type="search" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
                     <button className={styles.button} type="submit">
@@ -69,10 +72,15 @@ const Weather = () => {
                         </svg>
                     </button>
                 </form>
-                {weatherDetails?.current && <CurrentWeather current={weatherDetails.current} location={weatherDetails.location} />}
-            </section>
-            {weatherDetails?.forecast && <Forecast forecast={weatherDetails.forecast} time={weatherDetails.current.last_updated} />}
-        </section>
+                {(Object.keys(error).length != 0) 
+                ? <Error error={error}/>
+                :(<section className={styles.flexArea}>
+                    <section className={styles.current}>
+                        {weatherDetails?.current && <CurrentWeather current={weatherDetails.current} location={weatherDetails.location} />}
+                    </section>
+                    {weatherDetails?.forecast && <Forecast forecast={weatherDetails.forecast} time={weatherDetails.current.last_updated} />}
+                </section>)}
+            </>
     )
 }
 
