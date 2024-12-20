@@ -1,7 +1,7 @@
-import Weather from "./components/Weather/Weather";
+import Router from "./components/Router/Router";
 const App = () => {
     return (
-        <Weather />
+        <Router />
     )
 }
 
