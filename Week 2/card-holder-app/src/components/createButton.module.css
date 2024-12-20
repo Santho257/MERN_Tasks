@@ -1,14 +1,16 @@
 .input, .select{
     display: block;
     width: 80%;
-    height: 1.5rem;
+    font-size: 1rem;
     margin: 0 auto 0.5rem;
     height: 1.75rem;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
 }
 .form{
     display: flex;
     margin: auto;
-    width: 50vw;
+    width: 45vw;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -23,5 +25,11 @@
 .title{
     width: 100%;
     text-align: center;
+}
+
+@media (max-width: 750px){
+    .form{
+        width: 90vw;
+    }
 }
 

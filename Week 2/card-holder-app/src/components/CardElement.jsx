@@ -2,7 +2,7 @@ const CardElement = ({ children, styles, ...rest }) => {
     const cardStyles = {
         display: "flex",
         flexDirection: "column",
-        width: "30%",
+        width: `250px`,
         height: "300px",
         padding: "10px 1%",
         margin: "10px 10px",
