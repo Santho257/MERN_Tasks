@@ -6,9 +6,11 @@ import CurrentWeather from "../CurrentWeather/CurrentWeather";
 import Forecast from "../ForecastArea/Forecast";
 import { API_KEY } from "../../private.js"
 import { BASE_URL } from "../../constants.js"
+import Loading from "../Loading/Loading.jsx";
 
 const Weather = () => {
     const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState({});
     const [weatherDetails, setWeatherDetails] = useState({});
 
@@ -17,6 +19,7 @@ const Weather = () => {
     }, [])
 
     const fetchData = async location => {
+        setLoading(true);
         if (!location) {
             try {
                 const ip = await axios("https://ipinfo.io/json");
@@ -24,20 +27,20 @@ const Weather = () => {
                     location = ip.data.ip;
                 }
                 else {
-                    setError({ ...error, message: "Cannot fetch IP!" });
+                    setError({ message: "Cannot fetch IP!" });
                     return;
                 }
             }
             catch (err) {
-                console.log(err)
-                setError({ ...error, message: "Cannot fetch IP!" });
+                setError({ ...err});
                 return;
             }
         }
         try {
             const result = await axios(`${BASE_URL}/forecast.json?q=${location}&days=${3}&key=${API_KEY}`);
             if (result.data) {
-                setWeatherDetails(result.data)
+                setWeatherDetails(result.data);
+                setLoading(false);
             }
         }
         catch (error) {
@@ -50,7 +53,9 @@ const Weather = () => {
         await fetchData(searchTerm);
     }
     return (
-        <section className={styles.flexArea}>
+        loading 
+        ? <Loading />
+        : <section className={styles.flexArea}>
             <section className={styles.current}>
                 <form onSubmit={searchLocation} className={styles.searchForm}>
                     <input className={styles.input} placeholder="search..." type="search" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
@@ -66,7 +71,7 @@ const Weather = () => {
                 </form>
                 {weatherDetails?.current && <CurrentWeather current={weatherDetails.current} location={weatherDetails.location} />}
             </section>
-            {weatherDetails?.forecast && <Forecast forecast={weatherDetails.forecast} />}
+            {weatherDetails?.forecast && <Forecast forecast={weatherDetails.forecast} time={weatherDetails.current.last_updated} />}
         </section>
     )
 }
