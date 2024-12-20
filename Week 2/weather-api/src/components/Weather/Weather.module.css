@@ -1,5 +1,6 @@
 .flexArea{
     display: flex;
+    font-family: sans-serif ;
     height: 100vh;
     overflow: scroll;
     justify-content: space-between;
@@ -7,10 +8,10 @@
 }
 
 .current{
-    flex-basis: 74%;
+    flex-basis: 70%;
     height: 100%;
     width: 100%;
-    border-right: 2px solid grey;
+    border-right: 2px solid #80808036;
     background-color: white;
 }
 
