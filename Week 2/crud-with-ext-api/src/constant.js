@@ -1,0 +1,1 @@
+export const BASE_URL = `https://ca29fccb6e161049ad6c.free.beeceptor.com/api`;

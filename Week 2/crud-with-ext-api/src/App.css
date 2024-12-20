@@ -1,0 +1,139 @@
+header{
+    display: flex;
+    justify-content: space-around;
+    height: 5rem;
+    align-items: center;
+    background: linear-gradient(90deg, #4e54c8 0%, #8f94fb 100%);
+    color: white;
+}
+nav ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul li{
+    font-size: 1.5rem;
+    margin: auto 1rem;
+    cursor: pointer;
+    position: relative;
+}
+nav ul li::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: white;
+    transition: width 500ms;
+}
+nav ul li.selected::after{
+    width: 100%;
+}
+#formarea, #attendees-area{
+    max-width: 1024px;
+    width: 100%;
+
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#register-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.inputArea{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 70%;
+    margin-bottom: 1rem;
+}
+.inputArea input:not([type="checkbox"]), .inputArea select{
+    width: 100%;
+    font-size: 1.10rem;
+    height: 1.75rem;
+}
+.errText{
+    color: red;
+    font-size: 0.85rem;
+}
+.submit-btn{
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 1rem;
+    background-color: #8f94fb;
+    cursor: pointer;
+}
+
+th, tr, td, thead, tbody{
+    border: 1px solid #ded4d4e4;
+    text-align: center;
+}
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+tr, th{
+    height: 2rem;
+}
+
+tr:nth-child(2n){
+    background-color: #5f6ca577;
+}
+
+thead{
+    height: 3rem;
+    background-color: #4e54c8;
+    color: white;
+}
+
+.head{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.head select{
+    width: 10rem;
+    margin: auto 1rem;
+    height: 2rem;
+    font-size: 1.25rem;
+    background-color: #4e54c8;
+    color: white;
+}
+
+.title{
+    color: #202020;
+}
+
+.pagination{
+    width: 100%;
+    margin: 2rem 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination button{
+    margin: auto 0.25rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    background-color: #8f94fb;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.pagination button.active{
+    background-color: #4e54c8;
+}

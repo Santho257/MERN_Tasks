@@ -1,4 +1,8 @@
-function RegisterForm() {
+import { useState } from "react";
+import axios from 'axios';
+import { BASE_URL } from "../../constant";
+
+const RegisterUser = () => {
     const [user, setUser] = useState({
         email: "",
         name: "",
@@ -7,6 +11,7 @@ function RegisterForm() {
         attendance: false
     });
     const [err, setErr] = useState({});
+    const [apiErr, setApiErr] = useState({});
 
     const validateUser = () => {
         setErr({});
@@ -27,17 +32,20 @@ function RegisterForm() {
     const registerUser = async (e) => {
         e.preventDefault();
         if (validateUser()) {
-            const attendees = await JSON.parse(localStorage.getItem("attendees")) ?? [];
-            attendees.push(user);
-            localStorage.setItem("attendees", JSON.stringify(attendees));
-            alert("User Registered Successfully");
-            setUser({
-                email: "",
-                name: "",
-                age: 5,
-                food: "veg",
-                attendance: false
-            })
+            try{
+                await axios.post(`${BASE_URL}/users`, user);
+                alert("User Registered Successfully");
+                setUser({
+                    email: "",
+                    name: "",
+                    age: 5,
+                    food: "veg",
+                    attendance: false
+                })
+            }
+            catch(err) {
+                setApiErr({...err});
+            }
         }
     }
 
@@ -77,13 +85,6 @@ function RegisterForm() {
                     <sup className="errText">{err.food && err.food}</sup>
                 </article>
                 <article className="inputArea">
-                    <label htmlFor="attendance">Attendance</label>
-                    <input type="checkbox" id="attendance" checked={user.attendance} onChange={e => {
-                        setUser({ ...user, attendance: !user.attendance })
-                    }} />
-                    <sup className="errText">{err.attendance && err.attendance}</sup>
-                </article>
-                <article className="inputArea">
                     <button type="submit" className="submit-btn">Submit</button>
                 </article>
             </form>
@@ -91,4 +92,4 @@ function RegisterForm() {
     )
 }
 
-export default RegisterForm
+export default RegisterUser
