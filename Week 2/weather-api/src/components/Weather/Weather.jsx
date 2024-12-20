@@ -8,25 +8,29 @@ import { API_KEY } from "../../private.js"
 import { BASE_URL } from "../../constants.js"
 import Loading from "../Loading/Loading.jsx";
 import Error from "../Error/Error.jsx";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 const Weather = () => {
-    const [searchTerm, setSearchTerm] = useState("");
+    const { location } = useParams();
+    const navigator = useNavigate();
+    const [searchTerm, setSearchTerm] = useSearchParams({ search: "" });
+    const [searchValue, setSearchValue] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState({});
     const [weatherDetails, setWeatherDetails] = useState({});
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [location])
 
-    const fetchData = async location => {
+    const fetchData = async () => {
         setError({});
         setLoading(true);
         if (!location) {
             try {
                 const ip = await axios("https://ipinfo.io/json");
                 if (ip.data) {
-                    location = ip.data.ip;
+                    fetchContent(ip.data.ip);
                 }
                 else {
                     setError({ message: "Cannot fetch IP!" });
@@ -40,6 +44,10 @@ const Weather = () => {
                 return;
             }
         }
+        else fetchContent(location);
+    }
+
+    const fetchContent = async location => {
         try {
             const result = await axios(`${BASE_URL}/forecast.json?q=${location}&days=${3}&key=${API_KEY}`);
             if (result.data) {
@@ -48,20 +56,26 @@ const Weather = () => {
             }
         }
         catch (err) {
-            setError({...(err?.response?.data || err)});
+            setError({ ...(err?.response?.data || err) });
             setLoading(false)
         }
     }
+
     const searchLocation = async e => {
         e.preventDefault();
-        await fetchData(searchTerm);
+        navigator(`/${searchValue}`);
     }
     return (
         loading
             ? <Loading />
             : <>
                 <form onSubmit={searchLocation} className={styles.searchForm}>
-                    <input className={styles.input} placeholder="search..." type="search" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+                    <input className={styles.input} placeholder="search..." type="search" value={searchTerm.search} onChange={
+                        e => {
+                            setSearchValue(e.target.value)
+                            setSearchTerm({ search: e.target.value })
+                        }
+                    } />
                     <button className={styles.button} type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 48 48">
                             <path fill="#616161" d="M34.6 28.1H38.6V45.1H34.6z" transform="rotate(-45.001 36.586 36.587)"></path>
@@ -72,14 +86,14 @@ const Weather = () => {
                         </svg>
                     </button>
                 </form>
-                {(Object.keys(error).length != 0) 
-                ? <Error error={error}/>
-                :(<section className={styles.flexArea}>
-                    <section className={styles.current}>
-                        {weatherDetails?.current && <CurrentWeather current={weatherDetails.current} location={weatherDetails.location} />}
-                    </section>
-                    {weatherDetails?.forecast && <Forecast forecast={weatherDetails.forecast} time={weatherDetails.current.last_updated} />}
-                </section>)}
+                {(Object.keys(error).length != 0)
+                    ? <Error error={error} />
+                    : (<section className={styles.flexArea}>
+                        <section className={styles.current}>
+                            {weatherDetails?.current && <CurrentWeather current={weatherDetails.current} location={weatherDetails.location} />}
+                        </section>
+                        {weatherDetails?.forecast && <Forecast forecast={weatherDetails.forecast} time={weatherDetails.current.last_updated} />}
+                    </section>)}
             </>
     )
 }
