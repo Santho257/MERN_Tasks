@@ -1,21 +1,26 @@
+import { useEffect } from 'react';
 import styles from './Forecast.module.css'
 
-const Forecast = ({ forecast }) => {
+const Forecast = ({ forecast, time }) => {
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    useEffect(() => {
+        document.getElementById("today").scrollTop = document.getElementById("now").offsetTop - document.getElementById("heading").scrollHeight;
+    }, [forecast])
     return (
         <section className={styles.forecast}>
             <section className={styles.title}>
                 <h5>Next 3 days Forecast</h5>
             </section>
-            <section className={styles.today}>
-                <h3 className={styles.heading}>Today</h3>
+            <section className={styles.today} id='today'>
+                <h3 className={styles.heading} id='heading'>Today</h3>
                 <section className={styles.hours}>
                     {(forecast?.forecastday && forecast?.forecastday[0].hour.map((hour) => {
+                        const now = new Date(time).getHours() == new Date(hour.time).getHours();
                         return (
-                            <section className={`${styles.hour} ${(new Date().getHours() == new Date(hour.time).getHours()) && styles.now}`} key={hour.time}>
-                                <p>{(new Date().getHours() == new Date(hour.time).getHours()) ? "now" : new Date(hour.time).getHours().toString().padStart(2, "0").concat(":00")}</p>
+                            <section className={`${styles.hour} ${now && styles.now}`} key={hour.time}id={now ? "now" : ""}>
+                                <p>{now ? "now" : new Date(hour.time).getHours().toString().padStart(2, "0").concat(":00")}</p>
                                 <img src={hour.condition.icon} />
-                                <p style={{ color: "red" }}>{hour.temp_c}<sup>&deg;</sup>C</p>
+                                <p>{hour.temp_c}<sup>&deg;</sup>C</p>
                             </section>
                         )
                     }))}
