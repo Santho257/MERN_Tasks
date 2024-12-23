@@ -5,28 +5,24 @@ const TodoTable = () => {
     const [todoList, setTodoList] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
+    const [users, setUsers] = useState({});
 
     useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/todos")
-            .then(result => result.json())
-            .then(results => {
-                const resultWithName = results.map(async (result) => {
-                    return ({
-                        id: result.id,
-                        title: result.title,
-                        completed: result.completed,
-                        user: await fetch(`https://jsonplaceholder.typicode.com/users/${result.userId}`)
-                            .then(result => result.json())
-                            .then(result => { return { id: result.id, name: result.name } })
-                    });
-                });
-                Promise.all([...resultWithName])
-                    .then(result => {
-                        setTodoList(result);
-                        setLoading(false);
-                    });
-            })
-            .catch(err => { setError(err.message) });
+        (async () => {
+            const result = await fetch("https://jsonplaceholder.typicode.com/todos");
+            const todo = await result.json();
+            if(result.ok) setTodoList(todo);
+            const userSet = new Set();
+            for (let res of todo) {
+                userSet.add(res.userId);
+            }
+            for (let usr of Array.from(userSet)) {
+                const result = await fetch(`https://jsonplaceholder.typicode.com/users/${usr}`);
+                const user = await result.json();
+                setUsers(prev => { return { ...prev, [user.id]: user.name } })
+            }
+            setLoading(false);
+        })()
     }, []);
 
     return (
@@ -47,7 +43,7 @@ const TodoTable = () => {
                         {todoList.map((item, i) => {
                             return (<tr key={item.id}>
                                 <td className={todo.td}>{i + 1}</td>
-                                <td className={`${todo.td} ${todo.leftAlign}`}>{item.user.name}</td>
+                                <td className={`${todo.td} ${todo.leftAlign}`}>{users[item.userId]}</td>
                                 <td className={`${todo.td} ${todo.leftAlign}`}>{item.title}</td>
                                 <td className={todo.td}>{item.completed ? "Completed" : "To-do"}</td>
                             </tr>)
