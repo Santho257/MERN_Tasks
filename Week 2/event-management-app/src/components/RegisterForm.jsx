@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function RegisterForm() {
     const [user, setUser] = useState({
         email: "",
