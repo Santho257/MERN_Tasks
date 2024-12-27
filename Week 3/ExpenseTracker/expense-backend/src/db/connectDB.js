@@ -1,5 +1,6 @@
 import { connect } from 'mongoose'
-import { connectionString, database } from '../constants'
+import { connectionString, database } from '../constants.js'
+
 const connectDB = async () => {
     connect(`${connectionString}/${database}`)
         .then((instance) => {
@@ -10,3 +11,5 @@ const connectDB = async () => {
             console.error(`${connectionString}/${database}`);
         });
 }
+
+export {connectDB};
