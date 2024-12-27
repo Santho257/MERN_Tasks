@@ -1,0 +1,30 @@
+{
+  "name": "expense-backend",
+  "version": "1.0.0",
+  "description": "A simple expense tracking system's backend",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -r dotenv/config --experimental-json-modules ./src/index.js"
+  },
+  "keywords": [
+    "backend",
+    "expense-tracker",
+    "nodejs",
+    "express",
+    "expense"
+  ],
+  "author": "Santhoshkumar J V",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7",
+    "nodemon": "^3.1.9"
+  }
+}
