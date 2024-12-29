@@ -9,9 +9,9 @@ const UserSchema = new Schema({
         lowercase: true,
         validate: {
             validator: (email) => {
-                return /^[a-z0-9]([.][a-z0-9]+)*@([a-z0-9_]+[.])+[a-z]{2,4}$/.test(email);
+                return /^[a-z\d]([a-z\d]+\.)*[a-z\d]+@([a-z\d]+\.)+[a-z]{2,4}$/.test(email);
             },
-            message: `{value} is not valid email`
+            message: `{VALUE} is not valid email`
         }
     },
     password: {
