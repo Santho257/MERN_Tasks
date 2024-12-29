@@ -1,5 +1,5 @@
-import { User } from "../models/user.model.js";
-import { generateToken } from "../services/jwt.services.js";
+import { User } from "../models/users.model.js";
+import { generateToken } from "../services/jwt.service.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { AsyncHandler } from "../utils/AsyncHandler.js";
 
