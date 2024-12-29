@@ -1,13 +1,15 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import Section from '../../ui/Section/Section'
 import Input from '../../ui/Input/Input'
 import styles from './login.module.css'
 import Button from '../../ui/Button/Button'
 import axios from 'axios'
 import { BASE_URL } from '../../constants'
+import { AuthContext } from '../../contexts/AuthContext'
 
 const Login = ({ login }) => {
-    const [errors, setErrors] = useState({email:"", password:""})
+    const { logIn } = useContext(AuthContext);
+    const [errors, setErrors] = useState({email:"", password:""});
     const [formData, setFormData] = useState({
         email: "", password: "", rePassword: ""
     });
@@ -25,10 +27,12 @@ const Login = ({ login }) => {
             else{
                 result = await axios.post(`${BASE_URL}/auth/signup`, formData);
             }
-            sessionStorage.setItem("user", result.data.data);
-            alert("success");
+            sessionStorage.setItem("user", result.data.data.token);
+            logIn(result.data.data.token);
+            alert("success")
         }
         catch(err){
+            console.log(err);
             setErrors(err.response.data.errors)
         }
     };
