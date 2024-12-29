@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { genSaltSync, hashSync } from "bcrypt";
+import { compare, genSaltSync, hashSync } from "bcrypt";
 
 const UserSchema = new Schema({
     email: {
@@ -49,7 +49,7 @@ UserSchema.set("toObject", {virtuals: true});
 UserSchema.statics.login = async function login(email, password) {
     const user = await this.findOne({email});
     if(!user)   throw new ApiError("User not found", 400, {email: "Email doesn't exists"});
-    if(!(await bcrypt.compare(password, user.password))){
+    if(!(await compare(password, user.password))){
         throw new ApiError("User not found", 400, {password: `password doesn't match`});
     }
     return user;

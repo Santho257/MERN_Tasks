@@ -26,7 +26,7 @@ export const AsyncHandler = func => (req, res, next) =>{
                 for(let err in error.keyValue){
                     errors[err] = `${error.keyValue[err]} already exists!`;
                 }
-                res.send(new ApiError(error.message, 400, errors, error.stackTraceLimit));
+                res.status(400).send(new ApiError(error.message, 400, errors, error.stackTraceLimit));
                 return;
             }
             res.status(500).send(new ApiError(error.message || "Unknown Error", 500, error, error.stackTrace));
