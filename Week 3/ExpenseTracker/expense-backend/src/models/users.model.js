@@ -4,7 +4,7 @@ import { genSaltSync, hashSync } from "bcrypt";
 const UserSchema = new Schema({
     email: {
         type: String,
-        unique: [true, '{VALUE} already exists'],
+        unique: true,
         index: true,
         lowercase: true,
         validate: {
