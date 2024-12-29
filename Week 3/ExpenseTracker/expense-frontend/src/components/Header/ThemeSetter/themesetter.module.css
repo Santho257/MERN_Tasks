@@ -1,0 +1,9 @@
+.checkbox{
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 50%;
+    background-size: cover;
+    position: relative;
+}
