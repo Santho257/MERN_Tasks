@@ -25,6 +25,12 @@ const UserSchema = new Schema({
     }
 },{timestamps: true});
 
+UserSchema.pre('validate', function(next){
+    this.email = this.email?.trim();
+    this.password = this.password?.trim();
+    next();
+});
+
 UserSchema.pre('save', function(next){
     this.password = hashSync(this.password, genSaltSync(10));
     next();
@@ -39,5 +45,14 @@ UserSchema.virtual('expenseLists', {
 
 UserSchema.set("toJSON", {virtuals: true});
 UserSchema.set("toObject", {virtuals: true});
+
+UserSchema.statics.login = async function login(email, password) {
+    const user = await this.findOne({email});
+    if(!user)   throw new ApiError("User not found", 400, {email: "Email doesn't exists"});
+    if(!(await bcrypt.compare(password, user.password))){
+        throw new ApiError("User not found", 400, {password: `password doesn't match`});
+    }
+    return user;
+}
 
 export const User = model("User", UserSchema);
