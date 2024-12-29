@@ -1,0 +1,35 @@
+.header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 4rem;
+    background: linear-gradient(90deg, #4e54c8 0%, #8f94fb 100%);
+    color: white;
+}
+
+nav ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav ul li{
+    font-size: 1.2rem;
+    line-height: 2rem;
+    margin: auto 1rem;
+    cursor: pointer;
+    position: relative;
+}
+nav ul li::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: white;
+    transition: width 500ms;
+}
+nav ul li:hover::after{
+    width: 100%;
+}
