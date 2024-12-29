@@ -1,0 +1,12 @@
+label{
+    position: absolute;
+    font-size: 0.75rem;
+    top: 0.5rem;
+    margin-left: 2rem;
+    padding: auto 1rem;
+}
+
+.error{ 
+    color: red;
+    margin: 0 5%;
+}
