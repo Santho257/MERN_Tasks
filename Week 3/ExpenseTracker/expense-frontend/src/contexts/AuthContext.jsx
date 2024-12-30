@@ -1,18 +1,21 @@
-import { jwtDecode } from "jwt-decode";
 import { createContext, useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 const AuthContextProvider = ({children}) => {
+    const navi = useNavigate();
     const [user, setUser] = useState({
-        id: sessionStorage.getItem("user")?.jwt || ""
+        token: sessionStorage.getItem("user") || ""
     });
-    const logIn = useCallback((token) => {
-        setUser({...user, id: jwtDecode(token).id});
-    })
+    const logIn = useCallback(token => {
+        setUser({...user, token});
+    });
     const logOut = useCallback(() => {
-        setUser({...user, id: ""});
-    })
+        sessionStorage.setItem("user", "");
+        setUser({...user, token: ""});
+        navi("/login")
+    });
     return <AuthContext.Provider value={{user, logIn, logOut}}>{children}</AuthContext.Provider>
 }
 

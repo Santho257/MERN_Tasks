@@ -12,11 +12,10 @@ const Header = () => {
 			<h2>Expense Tracker</h2>
 			<nav>
 				<ul>
-					<li>{user.id}</li>
-					{user.id && <li><Link to="/expenses">Expenses</Link></li>}
-					{!user.id && <li><Link to="/signup">Signup</Link></li>}
-					{!user.id && <li><Link to="/login">Login</Link></li>}
-					{user.id && <li onClick={logOut}>Logout</li>}
+					{user.token && <li><Link to="/expenses">Expenses</Link></li>}
+					{!user.token && <li><Link to="/signup">Signup</Link></li>}
+					{!user.token && <li><Link to="/login">Login</Link></li>}
+					{user.token && <li onClick={logOut}>Logout</li>}
 					<li><ThemeSetter/></li>
 				</ul>
 			</nav>

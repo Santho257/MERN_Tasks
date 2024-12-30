@@ -4,7 +4,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 const RequireAuth = () => {
     const auth = useContext(AuthContext);
-    if(auth.user.id == ''){
+    if(auth.user.token == ''){
         return <Navigate to="/login" replace/>
     }
     return <Outlet/>;
