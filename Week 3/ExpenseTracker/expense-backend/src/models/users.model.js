@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { compare, genSaltSync, hashSync } from "bcrypt";
+import ApiError from "../utils/ApiError.js";
 
 const UserSchema = new Schema({
     email: {
