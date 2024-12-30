@@ -1,4 +1,6 @@
 import mongoose, { model, Schema } from "mongoose";
+import { User } from "./users.model.js";
+import ApiError from "../utils/ApiError.js";
 
 const ExpenseListSchema = new Schema({
     title: {
@@ -7,7 +9,7 @@ const ExpenseListSchema = new Schema({
     },
     createdBy: {
         type: mongoose.ObjectId,
-        ref: "UserSchema",
+        ref: "User",
         required: [true, "Should have a creator"],
     },
 }, { timestamps: true });
@@ -16,7 +18,13 @@ ExpenseListSchema.pre('validate', function(next){
     const trimmed = this.title.trim();
     this.title = trimmed[0].toUpperCase() + trimmed.slice(1);
     next();
-})
+});
+
+ExpenseListSchema.pre('save', async function(next){
+    const user = await User.findById(this.createdBy);
+    if(!user)  next(new ApiError(`${this.createdBy} not exists in User`));
+    else next(); 
+});
 
 ExpenseListSchema.virtual('expenses', {
     ref: "Expense",

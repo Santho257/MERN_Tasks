@@ -37,7 +37,6 @@ UserSchema.pre('save', function(next){
     next();
 })
 
-
 UserSchema.virtual('expenseLists', {
     ref: "ExpenseList",
     localField: "_id",

@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import { ExpenseList } from './expenseList.model.js';
 export const ExpenseSchema = new Schema({
     source: {
         type: String,
@@ -39,6 +40,12 @@ export const ExpenseSchema = new Schema({
 ExpenseSchema.pre("save", function (next) {
     this.source = this.source[0].toUpperCase() + this.source.slice(1);
     next();
+});
+
+ExpenseSchema.pre('save', async function(next){
+    const list = await ExpenseList.findById(this.expenseList);
+    if(!list)  next(new ApiError(`${this.expenseList} not exists in ExpenseList`));
+    else    next(); 
 });
 
 export const Expense = model("Expense", ExpenseSchema);
