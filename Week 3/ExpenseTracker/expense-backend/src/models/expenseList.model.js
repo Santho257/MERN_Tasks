@@ -7,9 +7,16 @@ const ExpenseListSchema = new Schema({
     },
     createdBy: {
         type: mongoose.ObjectId,
-        ref: "UserSchema"
+        ref: "UserSchema",
+        required: [true, "Should have a creator"],
     },
 }, { timestamps: true });
+
+ExpenseListSchema.pre('validate', function(next){
+    const trimmed = this.title.trim();
+    this.title = trimmed[0].toUpperCase() + trimmed.slice(1);
+    next();
+})
 
 ExpenseListSchema.virtual('expenses', {
     ref: "Expense",
