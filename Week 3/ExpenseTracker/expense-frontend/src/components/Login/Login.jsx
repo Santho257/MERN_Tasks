@@ -6,9 +6,11 @@ import Button from '../../ui/Button/Button'
 import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import { AuthContext } from '../../contexts/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 const Login = ({ login }) => {
     const { logIn } = useContext(AuthContext);
+    const navi = useNavigate();
     const [errors, setErrors] = useState({email:"", password:""});
     const [formData, setFormData] = useState({
         email: "", password: "", rePassword: ""
@@ -29,7 +31,7 @@ const Login = ({ login }) => {
             }
             sessionStorage.setItem("user", result.data.data.token);
             logIn(result.data.data.token);
-            alert("success")
+            navi('/expenses')
         }
         catch(err){
             console.log(err);
