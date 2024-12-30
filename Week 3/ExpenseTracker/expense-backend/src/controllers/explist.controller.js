@@ -9,7 +9,7 @@ const createExpenseList = AsyncHandler(async (req, res) => {
         const { title } = req.body;
         const createdBy = getIdFromToken(req.headers.authorization);
         const expenseList = await ExpenseList.create({title, createdBy});
-        req.status(201).send(new ApiResponse(201, "Expense List created", expenseList));
+        res.status(201).send(new ApiResponse(201, "Expense List created", expenseList));
     } catch (error) {
         throw error;
     }
