@@ -11,10 +11,8 @@ const App = () => {
     }, [darkTheme])
     return (
         <>
-            <BrowserRouter>
-                <Header />
-                <Router />
-            </BrowserRouter>
+            <Header />
+            <Router />
         </>
     )
 }
