@@ -4,10 +4,10 @@ const Card = ({ children, styles, ...rest }) => {
     const cardStyles = {
         display: "flex",
         flexDirection: "column",
-        width: `250px`,
-        height: "200px",
+        width: `200px`,
+        height: "250px",
         padding: "10px 1%",
-        margin: "10px 10px",
+        margin: "5px 5px",
         borderRadius: "20px",
         border: "1px solid #8f94fb",
         alignItems: "center",
@@ -23,7 +23,7 @@ const Card = ({ children, styles, ...rest }) => {
 export const Img = ({children, src, styles, ...rest}) => {
     const imgStyles = {
         width: "calc(100% - 2px)",
-        height: "40%",
+        height: "50%",
         borderRadius: "10px",
         ...styles
     }
@@ -38,7 +38,7 @@ export const Title = ({children, styles, ...rest}) => {
         border: "1px solid grey",
         ...styles
     }
-    return <h3 {...rest} style={titleStyles}>{children}</h3>
+    return <h4 {...rest} style={titleStyles}>{children}</h4>
 }
 
 export default Card;
