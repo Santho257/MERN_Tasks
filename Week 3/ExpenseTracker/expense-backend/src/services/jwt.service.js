@@ -9,3 +9,8 @@ export const generateToken = (payload) => {
 export const verifyToken = (token) => {
     return jwt.verify(token, jwtSecret);
 }
+
+export const getIdFromToken = token => {
+    if(verifyToken(token))
+        return jwt.decode(token).id;  
+}
