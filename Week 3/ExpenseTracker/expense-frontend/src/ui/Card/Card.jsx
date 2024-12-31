@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import Section from "../Section/Section";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const Card = ({ children, styles, ...rest }) => {
+    const { darkTheme } = useContext(ThemeContext);
     const cardStyles = {
         display: "flex",
         flexDirection: "column",
@@ -9,9 +12,11 @@ const Card = ({ children, styles, ...rest }) => {
         padding: "10px 1%",
         margin: "5px 5px",
         borderRadius: "20px",
-        border: "1px solid #8f94fb",
+        border: "1px solid #e3e4e4",
         alignItems: "center",
-        ...styles
+        ...styles,
+        borderColor: darkTheme ? "#454953" : "#e3e4e4",
+        backgroundColor: darkTheme ? "#343a46" : "#f6f7f8"
     }
     return (
         <Section {...rest} style={cardStyles}>
@@ -31,13 +36,13 @@ export const Img = ({ children, src, styles, ...rest }) => {
 }
 
 export const CardTitle = ({ children, styles, ...rest }) => {
+    const { darkTheme } = useContext(ThemeContext);
     const titleStyles = {
         margin: "10px 0",
         padding: "5px",
-        color: "#4e54c8",
-        border: "1px solid grey",
         cursor: "pointer",
-        ...styles
+        ...styles,
+        color: darkTheme ? "#67a9ba" : "#94c8db",
     }
     return <h5 {...rest} style={titleStyles}>{children}</h5>
 }

@@ -12,11 +12,11 @@ const Select = ({ style, noLabel, error, children, ...rest }) => {
         margin: "0 5%",
         borderRadius: "1rem",
         padding: "0 1rem",
-        ...style,
-        backgroundColor: darkTheme ? "#000000" : "#ffffff",
-        color: darkTheme ? "#fff" : "#232323",
         outline: "none",
-        border: darkTheme ? "none" : "1px solid #cdcef0"
+        ...style,
+        borderColor: error ? "red" : "transparent",
+        backgroundColor: darkTheme ? "#333a46" : "#ebecef",
+        color: darkTheme ? "#fff" : "#232323",
     }
     const errStyles = {
         color: "red",

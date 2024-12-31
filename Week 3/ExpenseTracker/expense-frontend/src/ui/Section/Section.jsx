@@ -14,9 +14,9 @@ const Section = ({ children, style, ...rest }) => {
         marginTop: "auto",
         marginBottom: "auto",
         position: "relative",
+        backgroundColor: darkTheme ? "#23282f" : "#f9f9f9",
+        color: darkTheme ? "#ffffff" : "#23282f",
         ...style,
-        backgroundColor: darkTheme ? "#23282f" : "#ffffff",
-        color: darkTheme ? "#ffffff" : "#23282f"
     }
     return (
         <section style={styles} {...rest}>{children}</section>

@@ -11,12 +11,12 @@ const Input = ({ style, error, noLabel, ...rest }) => {
     fontSize: "1rem",
     margin: "0 5%",
     padding: "1rem",
-    border: "1px solid",
+    border: "1px solid transparent",
     ...style,
-    backgroundColor: darkTheme ? "#000000" : "#ffffff",
-    color: darkTheme ? "#fff" : "#232323",
     outline: "none",
-    borderColor: error ? "red" : darkTheme ? "transparent" : "#cdcef0",
+    borderColor: error ? "red" : "transparent",
+    backgroundColor: darkTheme ? "#333a46" : "#ebecef",
+    color: darkTheme ? "#fff" : "#232323",
   };
   const errStyles = {
     color: "red",

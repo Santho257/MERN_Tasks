@@ -10,8 +10,8 @@ const Table = ({ style, children, ...rest }) => {
         borderCollapse: "collapse",
         textAlign: "center",
         ...style,
-        backgroundColor: darkTheme ? "#ebecf6" : "#c6c8ef",
-        color: "#232323"
+        borderColor: darkTheme ? "#454953" : "#e3e4e4",
+        backgroundColor: darkTheme ? "#343a46" : "#f6f7f8"
     };
     return (
         <table style={tabStyles} {...rest}>
@@ -21,10 +21,12 @@ const Table = ({ style, children, ...rest }) => {
 };
 
 export const TH = ({ children, style, ...rest }) => {
+    const { darkTheme } = useContext(ThemeContext)
     const thStyles = {
         height: "2rem",
         border: "1px solid #aaa1ab",
         padding: "0.5rem 0",
+        color: darkTheme ? "#67a9ba" : "#94c8db",
     };
     return (
         <th style={thStyles} {...rest}>
