@@ -1,43 +1,44 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-h1{
+h1 {
   font-size: 2.25rem;
   line-height: 2.35rem;
 }
-h2{
+h2 {
   font-size: 2rem;
-  line-height: 2.10rem;
+  line-height: 2.1rem;
 }
-h3{
+h3 {
   font-size: 1.75rem;
   line-height: 1.85rem;
 }
-h4{
+h4 {
   font-size: 1.5rem;
   line-height: 1.6rem;
 }
-h5{
+h5 {
   font-size: 1.25rem;
   line-height: 1.35rem;
 }
-h6{
+h6 {
   font-size: 1rem;
   line-height: 1.15rem;
 }
-p{
+p {
   font-size: 1rem;
-  line-height: 1.10rem;
+  line-height: 1.1rem;
 }
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
-ul{
+ul {
   list-style: none;
 }
-li{
+li {
   font-size: 1rem;
 }
