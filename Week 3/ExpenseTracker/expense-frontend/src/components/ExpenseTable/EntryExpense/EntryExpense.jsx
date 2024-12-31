@@ -44,7 +44,6 @@ const EntryExpense = ({ setCount }) => {
       });
       setCount((prev) => prev + 1);
     } catch (error) {
-      console.log(error);
       setErrors(error?.response?.data?.errors || { message: error.message });
     }
   };

@@ -13,7 +13,7 @@ import Form from '../../ui/Form/Form'
 const Login = ({ login }) => {
     const { logIn } = useContext(AuthContext);
     const navi = useNavigate();
-    const [errors, setErrors] = useState({email:"", password:""});
+    const [errors, setErrors] = useState({ email: "", password: "" });
     const [formData, setFormData] = useState({
         email: "", password: "", rePassword: ""
     });
@@ -24,19 +24,18 @@ const Login = ({ login }) => {
         setErrors({})
         e.preventDefault();
         let result;
-        try{
-            if(login){
+        try {
+            if (login) {
                 result = await axios.post(`${BASE_URL}/auth/login`, formData);
             }
-            else{
+            else {
                 result = await axios.post(`${BASE_URL}/auth/signup`, formData);
             }
             sessionStorage.setItem("user", result.data.data.token);
             logIn(result.data.data.token);
             navi('/expenses')
         }
-        catch(err){
-            console.log(err);
+        catch (err) {
             setErrors(err.response.data.errors)
         }
     };
@@ -45,8 +44,8 @@ const Login = ({ login }) => {
             <Section style={{ width: "540px" }}>
                 <Title>{login ? "Login" : "Create Account"}</Title>
                 <Form onSubmit={handleLogin}>
-                    <Input type="email" name="email" id="email" value={formData.email} onChange={(e) => handleChange("email", e.target.value)} placeholder="email" error={errors.email}/>
-                    <Input type="password" name="password" id="password" value={formData.password} onChange={(e) => handleChange("password", e.target.value)} placeholder="password" error={errors.password}/>
+                    <Input type="email" name="email" id="email" value={formData.email} onChange={(e) => handleChange("email", e.target.value)} placeholder="email" error={errors.email} />
+                    <Input type="password" name="password" id="password" value={formData.password} onChange={(e) => handleChange("password", e.target.value)} placeholder="password" error={errors.password} />
                     {/* {!login && <Input type="password" name="Re-Password" id="Re-Password" value={formData.rePassword} onChange={(e) => handleChange("rePassword", e.target.value)} placeholder="Reenter Password"/>} */}
                     <Button type="submit">{login ? "LOGIN" : "SIGN UP"}</Button>
                 </Form>

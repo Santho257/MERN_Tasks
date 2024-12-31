@@ -29,7 +29,6 @@ const ExpenseTable = () => {
   );
 
   const findTotalExpense = useMemo(() => {
-    console.log("Calculating");
     const total = expenses.reduce(
       (total, expense) => parseInt(total) + parseInt(expense.amount),
       0

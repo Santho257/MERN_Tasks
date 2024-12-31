@@ -28,7 +28,6 @@ const ExpenseListArea = () => {
                 setExpenses(result?.data?.data);
             }
             catch (error) {
-                console.log(error)
                 setErrors(error.response.data.errors);
             }
         })();
@@ -44,6 +43,11 @@ const ExpenseListArea = () => {
         }
     });
 
+    const handleCardClick = (e, id) => {
+        if (e.target.tagName != 'BUTTON') navi(`${id}`);
+        else deleteExpen(id);
+    }
+
     return (
         <Section className={areaStyles.container}>
             <Section className={areaStyles.header}>
@@ -52,10 +56,10 @@ const ExpenseListArea = () => {
             </Section>
             <Section className={areaStyles.cardholder}>
                 {expenses.map(expense => {
-                    return <Card key={expense.id}>
+                    return <Card key={expense.id} onClick={(e) => handleCardClick(e, expense._id)}>
                         <Img src={explist} alt="Temp Img" />
-                        <CardTitle onClick={() => navi(`${expense.id}`)}>{expense.title}</CardTitle>
-                        <Button onClick={e => deleteExpen(expense._id)}>Delete</Button>
+                        <CardTitle>{expense.title}</CardTitle>
+                        <Button>Delete</Button>
                     </Card>
                 })}
             </Section>
