@@ -16,7 +16,8 @@ const ExpenseListSchema = new Schema({
 
 ExpenseListSchema.pre('validate', function(next){
     const trimmed = this.title.trim();
-    this.title = trimmed[0].toUpperCase() + trimmed.slice(1);
+    if(trimmed)
+        this.title = trimmed[0].toUpperCase() + trimmed.slice(1);
     next();
 });
 
