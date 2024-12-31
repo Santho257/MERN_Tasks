@@ -44,8 +44,22 @@ const updateExpense = AsyncHandler(async (req, res) => {
         if(!expense)    throw new ApiError(`Expense Not found for ID :: ${id}`, 404, {id: "Not found"});
         if(expense.expenseList.createdBy != loggedInUser)
             throw new ApiError("You are not authorized to edit this expense", 403, { token: "Not authorized" });
-        await Expense.findByIdAndUpdate(id, req.body);
+        await Expense.findByIdAndUpdate(id, req.body, {runValidators: true});
         res.status(202).send(new ApiResponse(202, "Updated successfully", {message: `Updated ${id}`}));
+    } catch (error) {
+        throw error;
+    }
+});
+const getExpenseById = AsyncHandler(async (req, res) => {
+    try {
+        const { id } = req.params;
+        const loggedInUser = getIdFromToken(req.headers.authorization);
+        const expense = await Expense.findById(id).populate('expenseList');
+        if(!expense)    throw new ApiError(`Expense Not found for ID :: ${id}`, 404, {id: "Not found"});
+        if(expense.expenseList.createdBy != loggedInUser)
+            throw new ApiError("You are not authorized to edit this expense", 403, { token: "Not authorized" });
+        
+        res.status(200).send(new ApiResponse(200, `Expense with id:: ${id}`, await expense.depopulate()));
     } catch (error) {
         throw error;
     }
@@ -66,5 +80,5 @@ const deleteExpense = AsyncHandler(async (req, res) => {
     }
 });
 
-export { addExpense, getExpenses, updateExpense, deleteExpense }
+export { addExpense, getExpenses, updateExpense, deleteExpense, getExpenseById }
 

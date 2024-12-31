@@ -26,6 +26,18 @@ const getExpenseLists = AsyncHandler(async (req, res) => {
     }
 });
 
+const getListById = AsyncHandler(async (req, res) => {
+    try{
+        const {id} = req.params;
+        const createdBy = getIdFromToken(req.headers.authorization);
+        const expenseList = await ExpenseList.findOne({_id: id, createdBy});
+        res.send(new ApiResponse(200, `Expense List of ${id}`, expenseList));
+    }
+    catch(error){
+        throw error;
+    }
+})
+
 const updateList = AsyncHandler(async (req, res) => {
     try {
         const {id} = req.params;
@@ -35,7 +47,7 @@ const updateList = AsyncHandler(async (req, res) => {
             throw new ApiError(404, `List with ID ${id} not found`, {id: "Not found"});
         if(foundList.createdBy != loggedInUser)
             throw new ApiError(403, `You are not allowed to deleted the list`, "Access denied")
-        const updatedList = await ExpenseList.findByIdAndUpdate(id, req.body);
+        const updatedList = await ExpenseList.findByIdAndUpdate(id, req.body, {runValidators:true});
         res.status(202).send(new ApiResponse(202, "List Updated", updatedList));
     } catch (error) {
         throw error;
@@ -59,5 +71,5 @@ const deleteList = AsyncHandler(async (req, res) => {
 })
 
 export {
-    createExpenseList, getExpenseLists, updateList, deleteList
+    createExpenseList, getExpenseLists, updateList, deleteList, getListById
 }

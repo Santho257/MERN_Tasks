@@ -6,7 +6,7 @@ import { AsyncHandler } from "../utils/AsyncHandler.js";
 const updateUser = AsyncHandler(async (req, res) => {
     try {
         const id = getIdFromToken(req.headers.authorization);
-        await User.findByIdAndUpdate(id, req.body);
+        await User.findByIdAndUpdate(id, req.body, {runValidators: true});
         res.send(new ApiResponse(200, "Updated Successfully", {...req.body, id}));
     } catch (error) {
         throw error;
