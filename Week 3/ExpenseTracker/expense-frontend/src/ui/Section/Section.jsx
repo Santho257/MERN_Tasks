@@ -13,6 +13,7 @@ const Section = ({ children, style, ...rest }) => {
         marginRight: "auto",
         marginTop: "auto",
         marginBottom: "auto",
+        position: "relative",
         ...style,
         backgroundColor: darkTheme ? "#23282f" : "#ffffff",
         color: darkTheme ? "#ffffff" : "#23282f"

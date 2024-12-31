@@ -30,7 +30,7 @@ export const Img = ({children, src, styles, ...rest}) => {
     return <img {...rest} style={imgStyles} src={src} alt={rest.alt ?? ""} />
 }
 
-export const Title = ({children, styles, ...rest}) => {
+export const CardTitle = ({children, styles, ...rest}) => {
     const titleStyles = {
         margin: "10px 0",
         padding: "5px",
