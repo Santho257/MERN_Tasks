@@ -5,7 +5,7 @@ import axios from 'axios';
 import { BASE_URL } from '../../constants';
 import { AuthContext } from '../../contexts/AuthContext';
 import Card, { CardTitle, Img } from '../../ui/Card/Card';
-import vite from '/vite.svg'
+import explist from '/explist.png'
 import Button from '../../ui/Button/Button';
 import Create from './Create/Create';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +37,7 @@ const ExpenseListArea = () => {
     const deleteExpen = useCallback(async (id) => {
         setErrors({});
         try {
-            const result = await axios.delete(`${BASE_URL}/explists/${id}`, { headers:{Authorization: user.token}});
+            const result = await axios.delete(`${BASE_URL}/explists/${id}`, { headers: { Authorization: user.token } });
             setCount(prev => prev - 1);
         } catch (error) {
             setErrors(error.response.data.errors)
@@ -53,7 +53,7 @@ const ExpenseListArea = () => {
             <Section className={areaStyles.cardholder}>
                 {expenses.map(expense => {
                     return <Card key={expense.id}>
-                        <Img src={vite} alt="Temp Img" />
+                        <Img src={explist} alt="Temp Img" />
                         <CardTitle onClick={() => navi(`${expense.id}`)}>{expense.title}</CardTitle>
                         <Button onClick={e => deleteExpen(expense._id)}>Delete</Button>
                     </Card>
