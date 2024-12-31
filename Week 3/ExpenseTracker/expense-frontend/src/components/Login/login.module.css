@@ -8,15 +8,3 @@
     background-image: url('https://www.lystloc.com/blog/wp-content/uploads/2023/02/How-To-Manage-Field-Employee-Expenses-1.webp');
     background-size: 100% 100%;
 }
-
-.title{
-    width: 100%;
-    text-align: center;
-}
-
-.form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 2rem auto;
-}

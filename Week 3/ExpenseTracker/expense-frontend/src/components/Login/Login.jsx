@@ -7,6 +7,8 @@ import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import Title from '../../ui/Title/Title'
+import Form from '../../ui/Form/Form'
 
 const Login = ({ login }) => {
     const { logIn } = useContext(AuthContext);
@@ -41,13 +43,13 @@ const Login = ({ login }) => {
     return (
         <Section className={styles.container}>
             <Section style={{ width: "540px" }}>
-                <h3 className={styles.title}>{login ? "Login" : "Create Account"}</h3>
-                <form className={styles.form} onSubmit={handleLogin}>
+                <Title>{login ? "Login" : "Create Account"}</Title>
+                <Form onSubmit={handleLogin}>
                     <Input type="email" name="email" id="email" value={formData.email} onChange={(e) => handleChange("email", e.target.value)} placeholder="email" error={errors.email}/>
                     <Input type="password" name="password" id="password" value={formData.password} onChange={(e) => handleChange("password", e.target.value)} placeholder="password" error={errors.password}/>
                     {/* {!login && <Input type="password" name="Re-Password" id="Re-Password" value={formData.rePassword} onChange={(e) => handleChange("rePassword", e.target.value)} placeholder="Reenter Password"/>} */}
                     <Button type="submit">{login ? "LOGIN" : "SIGN UP"}</Button>
-                </form>
+                </Form>
             </Section>
         </Section>
     )
