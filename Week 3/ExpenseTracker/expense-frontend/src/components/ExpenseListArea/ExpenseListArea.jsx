@@ -4,12 +4,14 @@ import areaStyles from './ExpenseListArea.module.css'
 import axios from 'axios';
 import { BASE_URL } from '../../constants';
 import { AuthContext } from '../../contexts/AuthContext';
-import Card, { Img, Title } from '../../ui/Card/Card';
+import Card, { CardTitle, Img } from '../../ui/Card/Card';
 import vite from '/vite.svg'
 import Button from '../../ui/Button/Button';
 import Create from './Create/Create';
+import { useNavigate } from 'react-router-dom';
 
 const ExpenseListArea = () => {
+    const navi = useNavigate();
     const { user } = useContext(AuthContext);
     const [expenses, setExpenses] = useState([]);
     const [errors, setErrors] = useState({});
@@ -32,18 +34,6 @@ const ExpenseListArea = () => {
         })();
     }, [count]);
 
-    const createExpen = useCallback(async (e, title) => {
-        e.preventDefault();
-        setErrors({});
-        try {
-            const result = await axios.post(`${BASE_URL}/explists`, { title }, { headers:{Authorization: user.token}});
-            console.log(result.data.message)
-            setCount(prev => prev + 1);
-        } catch (error) {
-            setErrors(error.response.data.errors)
-        }
-    });
-
     const deleteExpen = useCallback(async (id) => {
         setErrors({});
         try {
@@ -58,13 +48,13 @@ const ExpenseListArea = () => {
         <Section className={areaStyles.container}>
             <Section className={areaStyles.header}>
                 <h3 className={areaStyles.title}>Expense Lists</h3>
-                <Create createFunc={createExpen} />
+                <Create setCount={setCount} />
             </Section>
             <Section className={areaStyles.cardholder}>
                 {expenses.map(expense => {
                     return <Card key={expense.id}>
                         <Img src={vite} alt="Temp Img" />
-                        <Title>{expense.title}</Title>
+                        <CardTitle onClick={() => navi(`${expense.id}`)}>{expense.title}</CardTitle>
                         <Button onClick={e => deleteExpen(expense._id)}>Delete</Button>
                     </Card>
                 })}
