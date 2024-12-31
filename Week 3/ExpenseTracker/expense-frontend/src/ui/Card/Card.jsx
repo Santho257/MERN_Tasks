@@ -20,25 +20,26 @@ const Card = ({ children, styles, ...rest }) => {
     )
 }
 
-export const Img = ({children, src, styles, ...rest}) => {
+export const Img = ({ children, src, styles, ...rest }) => {
     const imgStyles = {
         width: "calc(100% - 2px)",
-        height: "50%",
+        height: "60%",
         borderRadius: "10px",
         ...styles
     }
     return <img {...rest} style={imgStyles} src={src} alt={rest.alt ?? ""} />
 }
 
-export const CardTitle = ({children, styles, ...rest}) => {
+export const CardTitle = ({ children, styles, ...rest }) => {
     const titleStyles = {
         margin: "10px 0",
         padding: "5px",
         color: "#4e54c8",
         border: "1px solid grey",
+        cursor: "pointer",
         ...styles
     }
-    return <h4 {...rest} style={titleStyles}>{children}</h4>
+    return <h5 {...rest} style={titleStyles}>{children}</h5>
 }
 
 export default Card;

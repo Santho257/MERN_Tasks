@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from '../../contexts/ThemeContext'
 import Section from '../Section/Section';
+import Label from '../Label/Label';
 
-const Select = ({ style, error, children, ...rest }) => {
+const Select = ({ style, noLabel, error, children, ...rest }) => {
     const { darkTheme } = useContext(ThemeContext);
     const selectStyles = {
         width: "90%",
@@ -17,21 +18,13 @@ const Select = ({ style, error, children, ...rest }) => {
         outline: "none",
         border: darkTheme ? "none" : "1px solid #cdcef0"
     }
-    const labelStyles = {
-        position: "absolute",
-        fontSize: "0.75rem",
-        top: "0.5rem",
-        left: "3rem",
-        padding: "auto 1rem",
-        backgroundColor: darkTheme ? "#232323" : "#fff"
-    }
     const errStyles = {
         color: "red",
         margin: "0 5%",
     }
     return (
         <Section>
-            {(rest.value) && <label style={labelStyles} htmlFor={rest.id}>{rest.placeholder || rest.name}</label>}
+            {(rest.value && !noLabel) && <Label htmlFor={rest.id}>{rest.placeholder || rest.name}</Label>}
             <select style={selectStyles} {...rest}>
                 {children}
             </select>
