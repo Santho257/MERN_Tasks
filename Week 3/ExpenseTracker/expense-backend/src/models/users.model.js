@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     theme: {
         type: String,
         uppercase: true,
-        enum: {values: ["dark", "light"], message: "{VALUE} is neither dark nor light"}
+        enum: {values: ["DARK", "LIGHT"], message: "{VALUE} is neither dark nor light"}
     }
 },{timestamps: true});
 
