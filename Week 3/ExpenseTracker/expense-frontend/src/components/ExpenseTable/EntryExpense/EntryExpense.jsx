@@ -29,6 +29,12 @@ const EntryExpense = ({ setCount }) => {
   };
 
   const entryExpense = async () => {
+    setErrors({
+      source: "",
+      amount: "",
+      date: "",
+      category: "",
+    })
     try {
       const result = await axios.post(
         `${BASE_URL}/expenses`,
