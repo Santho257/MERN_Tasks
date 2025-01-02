@@ -1,10 +1,17 @@
-.container{
-    display: flex;
-    width: 100%;
-    height: calc(100vh - 4rem);
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    background-image: url('https://www.lystloc.com/blog/wp-content/uploads/2023/02/How-To-Manage-Field-Employee-Expenses-1.webp');
-    background-size: 100% 100%;
+.container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 4rem);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-image: url("https://www.lystloc.com/blog/wp-content/uploads/2023/02/How-To-Manage-Field-Employee-Expenses-1.webp");
+  background-size: 100% 100%;
+}
+
+.visiblePass {
+  position: absolute;
+  right: 2.5rem;
+  top: 1.5rem;
+  cursor: pointer;
 }
