@@ -62,7 +62,7 @@ const ExpenseTable = () => {
         </thead>
         <tbody>
           <ExpenseData expenses={filteredExpense} />
-          {currentPage == totalPages &&
+          {(totalPages == 0 || currentPage == totalPages) &&
             <>
               <tr>
                 <TD>{expenses.length + 1}</TD>
