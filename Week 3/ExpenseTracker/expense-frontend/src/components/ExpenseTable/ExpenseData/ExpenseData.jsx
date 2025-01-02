@@ -6,7 +6,7 @@ const ExpenseData = ({ expenses }) => {
 	const navi = useNavigate();
 	return expenses.map((expense, i) => (
 		<tr key={expense._id} onClick={() => navi(expense._id)}>
-			<TD>{i + 1}</TD>
+			<TD>{expense.sNo}</TD>
 			<TD>{expense.source}</TD>
 			<TD>{expense.category}</TD>
 			<TD>{new Date(expense.date).toLocaleDateString()}</TD>
