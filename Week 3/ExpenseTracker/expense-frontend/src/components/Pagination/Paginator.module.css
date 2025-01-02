@@ -1,0 +1,8 @@
+.pages{
+    display: flex;
+     justify-content: center;
+}
+
+.active{
+    background-color: blue;
+}
