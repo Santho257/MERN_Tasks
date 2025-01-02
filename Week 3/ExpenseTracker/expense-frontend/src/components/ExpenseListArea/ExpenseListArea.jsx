@@ -59,7 +59,7 @@ const ExpenseListArea = () => {
                     return <Card key={expense.id} onClick={(e) => handleCardClick(e, expense._id)}>
                         <Img src={explist} alt="Temp Img" />
                         <CardTitle>{expense.title}</CardTitle>
-                        <Button>Delete</Button>
+                        <Button style={{ backgroundColor: "red" }}>Delete</Button>
                     </Card>
                 })}
             </Section>
