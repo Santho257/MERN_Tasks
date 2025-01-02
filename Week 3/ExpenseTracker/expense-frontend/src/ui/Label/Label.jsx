@@ -9,9 +9,10 @@ const Label = ({ style, htmlFor, children }) => {
     top: "0.5rem",
     left: "calc(1rem + 5%)",
     zIndex: 1,
-    padding: "0 0.5rem",
     ...style,
-    backgroundColor: darkTheme ? "#232323" : "#fff",
+    background: darkTheme
+      ? "linear-gradient(to bottom, #23282f 0%, #23282f 50%, #333a46 50%, #333a46 100%)"
+      : "linear-gradient(to bottom, #f9f9f9 0%, #f9f9f9 50%, #ebecef 50%, #ebecef 100%)"
   };
   return (
     <label style={labelStyles} htmlFor={htmlFor}>
