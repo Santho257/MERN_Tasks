@@ -4,9 +4,8 @@ import { connectDB } from "./db/ConnectDB.js";
 
 connectDB()
     .then(() => {
-        app.listen(port, () => {
-            console.log(`App listening to port :: ${port}`);
-            console.log(`http://localhost:${port}`)
+        app.listen(port || 8888, () => {
+            console.log(`App listening to port :: ${port || 7502}`);
         })
     })
     .catch(err => {
