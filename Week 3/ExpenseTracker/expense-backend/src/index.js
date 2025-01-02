@@ -1,6 +1,6 @@
 import { app } from "./app.js";
 import { port } from "./constants.js";
-import { connectDB } from "./db/connectDB.js";
+import { connectDB } from "./db/ConnectDB.js";
 
 connectDB()
     .then(() => {
