@@ -1,1 +1,1 @@
-export const BASE_URL = `http://localhost:7052/api/v1`;
+export const BASE_URL = `https://expense-tracker-backend-hscu.onrender.com/api/v1`;
