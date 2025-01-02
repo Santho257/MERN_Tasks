@@ -73,7 +73,7 @@ const EntryExpense = ({ setCount }) => {
         >
           <Options
             options={{
-              Category: "",
+              "": "",
               Food: "food",
               Travel: "travel",
               Personal: "personal",
