@@ -14,6 +14,7 @@ const Card = ({ children, styles, ...rest }) => {
         borderRadius: "20px",
         border: "1px solid #e3e4e4",
         alignItems: "center",
+        cursor: "pointer",
         ...styles,
         borderColor: darkTheme ? "#454953" : "#e3e4e4",
         backgroundColor: darkTheme ? "#343a46" : "#f6f7f8"
