@@ -16,7 +16,7 @@ const CurrentWeather = ({current, location}) => {
             <section className={styles.extraDetail}>
                 <ExtraContent title="Wind" display="Today wind speed" result={current?.wind_kph} unit="kph" />
                 <ExtraContent title="Percipitation" display="Today percipitation" result={current?.precip_mm} unit="mm" />
-                <ExtraContent title="Pressure" display="Today's Pressure" result={current?.wind_kph} unit="hpa" />
+                <ExtraContent title="Pressure" display="Today's Pressure" result={current?.pressure_mb} unit="hpa" />
                 <ExtraContent title="UV Index" display="Today UV Index" result={current?.uv} unit="" />
             </section>
         </>
