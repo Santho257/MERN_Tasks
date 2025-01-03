@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import styles from './Forecast.module.css'
+import { formatDate } from '../../utils/formatDate';
 
 const Forecast = ({ forecast, time }) => {
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -27,7 +28,7 @@ const Forecast = ({ forecast, time }) => {
                 <section className={styles.day}>
                     <section>
                         <p>{forecast?.forecastday[1] && "Tomorrow"}</p>
-                        <p>{forecast?.forecastday[1] && `${new Date(forecast?.forecastday[1].date).getDate()}/${new Date(forecast?.forecastday[1].date).getMonth()}`}</p>
+                        <p>{forecast?.forecastday[1] && formatDate(forecast?.forecastday[1].date)}</p>
                     </section>
                     <h4>{forecast?.forecastday[1] && forecast?.forecastday[1].day.avgtemp_c}<sup>&deg;</sup>C</h4>
                     {forecast?.forecastday[1] && <img src={forecast?.forecastday[1].day.condition.icon} />}
@@ -35,7 +36,7 @@ const Forecast = ({ forecast, time }) => {
                 <section className={styles.day}>
                     <section>
                         <p>{forecast?.forecastday[2] && days[new Date(forecast?.forecastday[2].date).getDay()]}</p>
-                        <p>{forecast?.forecastday[2] && `${new Date(forecast?.forecastday[2].date).getDate()}/${new Date(forecast?.forecastday[2].date).getMonth()}`}</p>
+                        <p>{forecast?.forecastday[2] && formatDate(forecast?.forecastday[2].date)}</p>
                     </section>
                     <h4>{forecast?.forecastday[2] && forecast?.forecastday[2].day.avgtemp_c}<sup>&deg;</sup>C</h4>
                     {forecast?.forecastday[2] && <img src={forecast?.forecastday[2].day.condition.icon} />}
