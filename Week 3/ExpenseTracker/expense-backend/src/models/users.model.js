@@ -18,6 +18,7 @@ const UserSchema = new Schema(
         },
         message: `{VALUE} is not valid email`,
       },
+      required: [true, "Email is required"]
     },
     name: {
       type: String,
@@ -58,10 +59,20 @@ UserSchema.set("toJSON", { virtuals: true });
 UserSchema.set("toObject", { virtuals: true });
 
 UserSchema.statics.login = async function login(email, password) {
+  if(!email){
+    throw new ApiError("Email is required", 400, {
+      email: "email is required",
+    });
+  }
+  if(!password){
+    throw new ApiError("Password is required", 400, {
+      password: "password is required",
+    });
+  }
   const user = await this.findOne({ email });
   if (!user)
     throw new ApiError("User not found", 400, {
-      email: "Email doesn't exists",
+      email: `${email} doesn't exist`,
     });
   if (!(await compare(password, user.password))) {
     throw new ApiError("User not found", 400, {
