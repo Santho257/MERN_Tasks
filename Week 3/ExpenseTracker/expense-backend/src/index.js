@@ -12,3 +12,5 @@ connectDB()
         console.log("Error::"+err);
         process.exit(1);
     });
+
+export {app}

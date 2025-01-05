@@ -1,3 +1,8 @@
+import { config } from "dotenv";
+const envPath = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : ".env";
+console.log(envPath)
+config({path:envPath});
+
 export const connectionString = process.env.MONGO_URL;
 export const database = process.env.MONGO_DATABASE;
 
