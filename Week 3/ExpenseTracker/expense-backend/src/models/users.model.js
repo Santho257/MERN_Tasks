@@ -71,7 +71,7 @@ UserSchema.statics.login = async function login(email, password) {
   }
   const user = await this.findOne({ email });
   if (!user)
-    throw new ApiError("User not found", 400, {
+    throw new ApiError("User not found", 404, {
       email: `${email} doesn't exist`,
     });
   if (!(await compare(password, user.password))) {
