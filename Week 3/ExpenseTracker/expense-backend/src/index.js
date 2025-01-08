@@ -13,4 +13,4 @@ connectDB()
         process.exit(1);
     });
 
-export {app}
+export {app as server}
