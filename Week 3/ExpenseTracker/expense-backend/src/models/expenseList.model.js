@@ -6,6 +6,7 @@ const ExpenseListSchema = new Schema({
     title: {
         type: String,
         required: [true, "Title is required"],
+        trim: true
     },
     createdBy: {
         type: mongoose.ObjectId,
@@ -15,7 +16,7 @@ const ExpenseListSchema = new Schema({
 }, { timestamps: true });
 
 ExpenseListSchema.pre('validate', function(next){
-    const trimmed = this.title.trim();
+    const trimmed = this.title?.trim();
     if(trimmed)
         this.title = trimmed[0].toUpperCase() + trimmed.slice(1);
     next();
