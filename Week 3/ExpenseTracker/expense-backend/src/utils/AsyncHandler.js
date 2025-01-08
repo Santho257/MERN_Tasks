@@ -18,7 +18,7 @@ export const AsyncHandler = func => (req, res, next) =>{
                 return;
             }
             if(error instanceof MongooseError && error.kind == "ObjectId"){
-                res.status(400).send(new ApiError(error.message, 400, error, error.stackTraceLimit));
+                res.status(400).send(new ApiError(error.message, 400, {id: `${error.value} is not ObjectID`}, error.stackTraceLimit));
                 return;
             }
             if(error.code == 11000){
