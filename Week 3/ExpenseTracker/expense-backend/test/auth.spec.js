@@ -1,14 +1,10 @@
-import * as chaiModule from "chai";
-import chaiHttp from "chai-http";
 import { beforeEach, describe, it } from "mocha";
-import {app} from "../src/index.js";
+import {server} from "../src/index.js";
 import { User } from "../src/models/users.model.js";
 import { BASE_URL } from "../src/constants.js";
+import { chai, expect } from "./chai.js";
 
-const chai = chaiModule.use(chaiHttp);
-const expect = chaiModule.expect;
-
-describe.only("Auth Tests", () => {
+describe("Auth Tests", () => {
   const baseurl = `${BASE_URL}/auth`
   beforeEach((done) => {
     User.deleteMany({}).then((res) => {
@@ -19,7 +15,7 @@ describe.only("Auth Tests", () => {
     const url = `${baseurl}/signup`;
     it("POST /auth/signup perfect", (done) => {
       chai.request
-        .execute(app)
+        .execute(server)
         .post(url)
         .send({
           email: "santho@gmail.com",
@@ -38,7 +34,7 @@ describe.only("Auth Tests", () => {
     });
     it("POST /auth/signup missing fields", (done) => {
       chai.request
-        .execute(app)
+        .execute(server)
         .post(url)
         .send({
           email: "santho@gmail.com",
@@ -63,7 +59,7 @@ describe.only("Auth Tests", () => {
         name: "Santhosh",
       }).then(() => {
         chai.request
-          .execute(app)
+          .execute(server)
           .post(url)
           .send({
             email: "santho@gmail.com",
@@ -94,7 +90,7 @@ describe.only("Auth Tests", () => {
         name: "Santhosh",
       }).then(() => {
         chai.request
-          .execute(app)
+          .execute(server)
           .post(url)
           .send({
             email: "santho@gmail.com",
@@ -113,7 +109,7 @@ describe.only("Auth Tests", () => {
     });
     it("POST /auth/login Empty field", (done) => {
       chai.request
-        .execute(app)
+        .execute(server)
         .post(url)
         .send({
           password: "Santho@257",
@@ -130,7 +126,7 @@ describe.only("Auth Tests", () => {
     });
     it("POST /auth/login Email Not found", (done) => {
       chai.request
-        .execute(app)
+        .execute(server)
         .post(url)
         .send({
           email: "santho@gmail.com",
@@ -155,7 +151,7 @@ describe.only("Auth Tests", () => {
         name: "Santhosh",
       }).then(() => {
         chai.request
-          .execute(app)
+          .execute(server)
           .post(url)
           .send({
             email: "santho@gmail.com",
