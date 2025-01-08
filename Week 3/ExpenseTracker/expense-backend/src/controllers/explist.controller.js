@@ -30,7 +30,11 @@ const getListById = AsyncHandler(async (req, res) => {
     try{
         const {id} = req.params;
         const createdBy = getIdFromToken(req.headers.authorization);
-        const expenseList = await ExpenseList.findOne({_id: id, createdBy});
+        const expenseList = await ExpenseList.findById(id);
+        if(!expenseList)
+            throw new ApiError(`List with ID ${id} not found`, 404,{id: "Not found"});
+        if(expenseList.createdBy != createdBy)
+            throw new ApiError(`You are not allowed to deleted the list`, 403, {token: "Access Denied"})
         res.send(new ApiResponse(200, `Expense List of ${id}`, expenseList));
     }
     catch(error){
@@ -44,9 +48,9 @@ const updateList = AsyncHandler(async (req, res) => {
         const loggedInUser = getIdFromToken(req.headers.authorization);
         const foundList = await ExpenseList.findById(id);
         if(!foundList)
-            throw new ApiError(404, `List with ID ${id} not found`, {id: "Not found"});
+            throw new ApiError(`List with ID ${id} not found`,404, {id: "Not found"});
         if(foundList.createdBy != loggedInUser)
-            throw new ApiError(403, `You are not allowed to deleted the list`, "Access denied")
+            throw new ApiError(`You are not allowed to deleted the list`, 403, "Access denied")
         const updatedList = await ExpenseList.findByIdAndUpdate(id, req.body, {runValidators:true});
         res.status(202).send(new ApiResponse(202, "List Updated", updatedList));
     } catch (error) {
@@ -60,9 +64,9 @@ const deleteList = AsyncHandler(async (req, res) => {
         const loggedInUser = getIdFromToken(req.headers.authorization);
         const foundList = await ExpenseList.findById(id);
         if(!foundList)
-            throw new ApiError(404, `List with ID ${id} not found`, {id: "Not found"});
+            throw new ApiError(`List with ID ${id} not found`, 404, {id: "Not found"});
         if(foundList.createdBy != loggedInUser)
-            throw new ApiError(403, `You are not allowed to deleted the list`, "Access denied")
+            throw new ApiError(`You are not allowed to deleted the list`, 403,"Access denied")
         const deleteList = await ExpenseList.findByIdAndDelete(id);
         res.status(202).send(new ApiResponse(202, "List Deleted", deleteList));
     } catch (error) {
