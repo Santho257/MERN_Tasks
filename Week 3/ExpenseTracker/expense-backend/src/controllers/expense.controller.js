@@ -9,6 +9,9 @@ const addExpense = AsyncHandler(async (req, res, next) => {
     try {
         const loggedInUser = getIdFromToken(req.headers.authorization);
         const list = await ExpenseList.findById(req.body.expenseList).populate('createdBy');
+        if(!list){
+            throw new ApiError("List is not available", 404, { expenseList: `${req.body.expenseList} not found` });
+        }
         if (list?.createdBy && loggedInUser != list?.createdBy?._id) {
             throw new ApiError("You are not authorized to add expense to this list", 403, { token: "Not authorized" });
         }
@@ -25,6 +28,9 @@ const getExpenses = AsyncHandler(async (req, res, next) => {
         const { expenseList } = req.params;
         const loggedInUser = getIdFromToken(req.headers.authorization);
         const list = await ExpenseList.findById(expenseList);
+        if(!list){
+            throw new ApiError("List is not available", 404, { expenseList: `${expenseList} not found` });
+        }
         if (list?.createdBy && loggedInUser != list?.createdBy) {
             throw new ApiError("You are not authorized to view expenses fo this list", 403, { token: "Not authorized" });
         }
