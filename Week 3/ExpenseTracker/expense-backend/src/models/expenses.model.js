@@ -4,6 +4,7 @@ export const ExpenseSchema = new Schema({
     source: {
         type: String,
         required: [true, "Source cannot be empty"],
+        trim: true
     },
     category: {
         type: String,
@@ -38,7 +39,7 @@ export const ExpenseSchema = new Schema({
 }, { timestamps: true });
 
 ExpenseSchema.pre("save", function (next) {
-    this.source = this.source[0].toUpperCase() + this.source.slice(1);
+    this.source = this.source[0]?.toUpperCase() + this.source?.slice(1);
     next();
 });
 
