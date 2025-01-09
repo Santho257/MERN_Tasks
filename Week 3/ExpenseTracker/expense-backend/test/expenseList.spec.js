@@ -6,9 +6,9 @@ import { generateToken } from "../src/services/jwt.service.js";
 import { server } from "../src/index.js";
 import { chai, expect } from "./chai.js";
 
-describe.only("Expense List Tests", () => {
+describe("Expense List Tests", () => {
     const url = `${BASE_URL}/explists`;
-    let token;
+    let token, id;
     before((done) => {
         User.create({
             email: "test@gmail.com",
@@ -228,6 +228,6 @@ describe.only("Expense List Tests", () => {
     after((done) => {
         User.deleteMany({}).then((res) => {
             done();
-        });
+        }); 
     });
 });
