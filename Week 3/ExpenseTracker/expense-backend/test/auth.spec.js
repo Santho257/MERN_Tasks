@@ -1,4 +1,4 @@
-import { beforeEach, describe, it } from "mocha";
+import { after, beforeEach, describe, it } from "mocha";
 import {server} from "../src/index.js";
 import { User } from "../src/models/users.model.js";
 import { BASE_URL } from "../src/constants.js";
@@ -169,5 +169,10 @@ describe("Auth Tests", () => {
           });
       });
     });
+  })
+  after(done => {
+    User.deleteMany({}).then(() => {
+      done();
+    })
   })
 });
