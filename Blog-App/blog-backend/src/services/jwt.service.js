@@ -1,6 +1,8 @@
-import { decode, sign, verify } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "../constants.js"
 import ApiError from "../utils/ApiError.js";
+
+const { decode, sign, verify } = jwt;
 
 export const generateToken = (payload) => {
     return sign(payload, JWT_SECRET, { expiresIn: "10h" });
