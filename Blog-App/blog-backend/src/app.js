@@ -1,6 +1,8 @@
 import express from 'express';
 import logger from './config/logger.config.js';
 import morgan from "morgan";
+import { API_VERSION } from './constants.js';
+import AuthRouter from './routes/auth.route.js';
 
 const morganFormat = ":method :url :status :response-time ms";
 
@@ -23,5 +25,7 @@ app.use(
     },
   })
 );
+
+app.use(`/api/v${API_VERSION}/auth`, AuthRouter);
 
 export default app;
