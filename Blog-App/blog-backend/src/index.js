@@ -13,3 +13,5 @@ connectDb()
     .catch((error) => {
         logger.error(error.message);
     })
+
+export {app as server};
