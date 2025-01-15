@@ -7,3 +7,5 @@ class ApiError {
         this.stackTrace = stackTrace ?? Error.captureStackTrace(this, this.constructor);
     }
 }
+
+export default ApiError;
