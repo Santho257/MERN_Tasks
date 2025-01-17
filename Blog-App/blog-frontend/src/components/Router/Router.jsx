@@ -1,9 +1,15 @@
 import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import AllBlogs from '../AllBlogs/AllBlogs'
 import RequireAuth from '../RequireAuth/RequireAuth'
 import Login from '../Login/Login'
 import ReadBlog from '../ReadBlog/ReadBlog'
+import EditBlog from '../EditBlog'
+import NewBlog from '../NewBlog/NewBlog'
+import EditAuthority from '../Authorization/EditAuthority'
+import Error from '../Errors/Error'
+import Unauthorized from '../Unauthorized/Unauthorized'
+import FourOFour from '../FourOFour/FourOFour'
 
 const Router = () => {
 	return (
@@ -13,8 +19,15 @@ const Router = () => {
 			<Route exact path='/signin' element={<Login log={true} />} />
 			<Route exact path='/signup' element={<Login />} />
 			<Route element={<RequireAuth />}>
-				<Route exact path='/blogs/:id' element={<ReadBlog/>} />
+				<Route exact path='/blogs/:id' element={<ReadBlog />} />
+				<Route exact path='/blogs/new' element={<NewBlog />} />
+				<Route element={<EditAuthority />}>
+					<Route exact path='/blogs/e/:id' element={<EditBlog />} />
+				</Route>
 			</Route>
+			<Route exact path='/error' element={<Error />} />
+			<Route exact path='/unauthorized' element={<Unauthorized />} />
+			<Route exact path='*' element={<FourOFour />} />
 		</Routes>
 	)
 }
