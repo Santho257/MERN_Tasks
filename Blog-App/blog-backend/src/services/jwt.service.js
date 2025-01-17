@@ -25,6 +25,6 @@ export const verifyToken = authorization => {
 
 export const getIdFromToken = authorization => {
     const token = extractToken(authorization)
-    if(verifyToken(token))
+    if(verifyToken(authorization))
         return decode(token).id;
 }
