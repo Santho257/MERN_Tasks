@@ -15,9 +15,8 @@ const authorityCheck = async (blogId, userId) => {
 
 const createBlog = asyncHandler(async (req, res, next) => {
     try {
-        const { title, content, published = false } = req.body;
         const author = getIdFromToken(req.headers.authorization);
-        const newBlog = await Blog.create({ title, content, author, published });
+        const newBlog = await Blog.create({ ...req.body, author });
         res.status(201).send(new ApiResponse(201, "Blog Created", newBlog))
     } catch (error) {
         throw error;
@@ -57,6 +56,8 @@ const getById = asyncHandler(async(req, res, next) => {
         const {id} = req.params;
         const loggedInUser = getIdFromToken(req.headers.authorization);
         const blog = await Blog.findById(id);
+        if(!blog)
+            throw new ApiError(404, "Not found", {id: "Blog Not found"})
         if(!blog.published)
             await authorityCheck(id, loggedInUser);
         res.status(200).send(new ApiResponse(200, "Blogs By Author", blog));
