@@ -12,7 +12,7 @@ const Header = () => {
         <nav>
             <ul>
                 <li><Link to="/blogs">Blogs</Link></li>
-                <li><Link to="/new">Write</Link></li>
+                <li><Link to="/blogs/new">Write</Link></li>
                 {!user?.token && <li><Link to="/signin"><Button>Sign In</Button></Link></li>}
                 {user?.token && <li><Button onClick={logout}>logout</Button></li>}
             </ul>
