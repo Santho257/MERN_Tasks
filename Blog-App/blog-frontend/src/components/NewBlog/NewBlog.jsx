@@ -19,7 +19,7 @@ const NewBlog = () => {
                 }]
             }, {headers:{Authorization: `Bearer ${user.token}`}});
             if(response.data?.data?.id){
-                navi(`/blogs/e/${response.data?.data?.id}`)
+                navi(`/blogs/${response.data?.data?.id}/edit`)
             }
         } catch (error) {
             console.log("Errors");

@@ -22,7 +22,7 @@ const Router = () => {
 				<Route exact path='/blogs/:id' element={<ReadBlog />} />
 				<Route exact path='/blogs/new' element={<NewBlog />} />
 				<Route element={<EditAuthority />}>
-					<Route exact path='/blogs/e/:id' element={<EditBlog />} />
+					<Route exact path='/blogs/:id/edit' element={<EditBlog />} />
 				</Route>
 			</Route>
 			<Route exact path='/error' element={<Error />} />
