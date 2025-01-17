@@ -45,7 +45,6 @@ header nav ul li {
   outline: none;
 }
 .blog-img{
-	width: 80%;
 	height: 70vh;
 }
 .blog-img img{
@@ -99,6 +98,7 @@ header nav ul li {
 
 .title{
 	width: 100%;
+  outline: none;
   padding: 0.5rem 1rem;
 }
 
