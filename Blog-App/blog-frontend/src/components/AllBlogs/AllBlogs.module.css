@@ -1,0 +1,26 @@
+.displayArea {
+    height: calc(100vh - 4rem);
+    overflow: auto;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+.card{
+    display: flex;
+    background-color: #fff;
+    margin: 1rem 0.25rem;
+    padding: 0.5rem 0.25rem;
+}
+.cardImg{
+    width: 150px;
+    height: 100px;
+    margin: 1rem 0.5rem;
+}
+.cardTextArea{
+    margin: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.title{
+    cursor: pointer;
+}
