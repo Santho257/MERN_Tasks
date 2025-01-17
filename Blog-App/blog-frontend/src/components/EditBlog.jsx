@@ -3,7 +3,6 @@ import React, { createRef, useContext, useEffect, useState } from "react";
 import ContentEditable from "react-contenteditable";
 import sanitize from "sanitize-html";
 import { BASE_URL } from "../constants";
-import { debounce } from "../utils/debounce";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Section from "../ui/Section/Section";
@@ -13,8 +12,8 @@ const EditBlog = () => {
     const navi = useNavigate();
     const { user } = useContext(AuthContext);
     const [content, setContent] = useState([]);
-    const [edited, setEdited] = useState([]);
     const [published, setPublished] = useState(false);
+    const [changes, setChanges] = useState(false);
     const { id } = useParams();
     const [title, setTitle] = useState(null);
     const [count, setCount] = useState(0);
@@ -22,33 +21,10 @@ const EditBlog = () => {
     const focRef = createRef();
 
     useEffect(() => {
-        if (edited.length != 0)
-            updateBlog();
-    }, [edited]);
-
-    useEffect(() => {
-        if (title !== null) {
-            updateTitle()
-        }
-    }, [title])
-
-    useEffect(() => {
         fetchBlog();
     }, [id, count]);
 
-    useEffect(() => {
-        const textElem = focRef.current?.childNodes[0];
-        if (textElem) {
-            textElem.focus();
-            const range = document.createRange();
-            const selection = window.getSelection();
-            range.selectNodeContents(textElem);
-            range.collapse(false);
-            selection.removeAllRanges();
-            selection.addRange(range);
-        }
-    }, [focIndex]);
-
+    
     const fetchBlog = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/blogs/${id}`, {
@@ -63,28 +39,25 @@ const EditBlog = () => {
             console.log(error);
             console.log(error.errors);
             if (error.response?.data?.status == 404) navi("/404")
-        }
+            }
     }
 
-    const updateTitle = async () => {
-        try {
-            const response = await axios.patch(`${BASE_URL}/blogs/${id}`, { title }, {
-                headers: {
-                    Authorization: `Bearer ${user.token}`
-                }
-            })
-            if (response.data.success) {
-                setCount(count + 1);
-            }
+    useEffect(() => {
+        const textElem = focRef.current?.childNodes[0];
+        if (textElem) {
+            textElem.focus();
+            const range = document.createRange();
+            const selection = window.getSelection();
+            range.selectNodeContents(textElem);
+            range.collapse(false);
+            selection.removeAllRanges();
+            selection.addRange(range);
         }
-        catch (error) {
-            console.log(error); 
-        }
-    }
+    }, [focIndex]);
 
     const updateBlog = async () => {
         try {
-            const response = await axios.patch(`${BASE_URL}/blogs/${id}`, { content:edited }, {
+            const response = await axios.patch(`${BASE_URL}/blogs/${id}`, { title, content }, {
                 headers: {
                     Authorization: `Bearer ${user.token}`
                 }
@@ -97,14 +70,14 @@ const EditBlog = () => {
             console.log(error.errors);
         }
     }
-    const handleTextChange = debounce((e, i) => {
+    const handleTextChange = (e, i) => {
         const newContent = [...content];
         newContent[i].value = sanitize(e.target.value, {
             allowedTags: ["b"],
             allowedAttributes: {}
         });
-        setEdited([...newContent])
-    }, 500);
+        setContent([...newContent])
+    };
 
     const handleEnter = (e, i) => {
         if (e.code == "Enter") {
@@ -122,13 +95,13 @@ const EditBlog = () => {
 
     const changeType = (e, i) => {
         content[i].type = e.target.value;
-        setEdited([...content])
+        setContent([...content])
     }
 
     const addTop = (i) => {
         const newContent = [...content];
         newContent.splice(i, 0, { type: "para", value: "" });
-        setEdited([...newContent]);
+        setContent([...newContent]);
         setFocIndex(i);
     };
 
@@ -137,12 +110,12 @@ const EditBlog = () => {
             const newContent = [...content];
             newContent.splice(i, 1);
             setFocIndex(i - 1);
-            setEdited([...newContent]);
+            setContent([...newContent]);
         }
         else if (content.length == 1) {
             const newContent = [];
             newContent.push({ type: "para", value: "" });
-            setEdited([...newContent]);
+            setContent([...newContent]);
         }
     };
 
@@ -154,7 +127,7 @@ const EditBlog = () => {
         try {
             const response = await axios.post(`https://api.cloudinary.com/v1_1/do3xgroki/image/upload`, fd);
             content[i].value = response.data.url;
-            setEdited([...content]);
+            setContent([...content]);
         }
         catch (err) {
             console.error(err);
@@ -201,12 +174,11 @@ const EditBlog = () => {
                     className="title"
                     tagName="h3"
                     html={title ?? ""}
-                    onChange={debounce((e) => setTitle(e.target.value), 500)}
+                    onChange={(e) => setTitle(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.code == "Enter") {
                             e.preventDefault();
                             addTop(0);
-                            e.target.blur();
                         }
                     }}
                 />
@@ -269,6 +241,7 @@ const EditBlog = () => {
                 ))}
                 <Section>
                     <Button style={{ backgroundColor: "green" }} onClick={publish}>{published ? "Unpublish" : "Publish"}</Button>
+                    <Button style={{ backgroundColor: "green" }} onClick={updateBlog}>Save</Button>
                     <Button style={{ backgroundColor: "red" }} onClick={deleteBlog}>Delete</Button>
                 </Section>
             </Section>
