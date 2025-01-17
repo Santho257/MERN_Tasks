@@ -30,7 +30,6 @@ const BlogSchema = new Schema({
             },
             value: {
                 type: String,
-                trim: true,
             },
         },
     ],
