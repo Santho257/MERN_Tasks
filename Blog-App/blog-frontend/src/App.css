@@ -4,11 +4,15 @@ header {
   align-items: center;
   justify-content: space-around;
   height: 4rem;
-  border-bottom: 1px solid #cac5c5;
+  border-bottom: 1px solid #d3e5ee7e;
   position: sticky;
   top: 0;
   background-color: #fff;
   z-index: 2;
+}
+
+.logo{
+  color: #0d72a4d6;
 }
 
 header nav ul {
