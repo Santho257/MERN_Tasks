@@ -7,7 +7,6 @@ import axios from "axios";
 import { BASE_URL } from "../../constants";
 import { AuthContext } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import Title from "../../ui/Title/Title";
 import Form from "../../ui/Form/Form";
 import EyeClose from "../../ui/Icons/EyeClose";
 import EyeOpen from "../../ui/Icons/EyeOpen";
@@ -35,17 +34,17 @@ const Login = ({ log }) => {
             } else {
                 result = await axios.post(`${BASE_URL}/auth/signup`, formData);
             }
-            console.log(result.data)
             login(result.data.data.token);
             navi(-1);
         } catch (err) {
+            console.log(err.response)
             setErrors(err.response.data.errors);
         }
     };
     return (
         <Section className={styles.container}>
             <Section style={{ width: "540px", background: "white" }} className={styles.holder}>
-                <Title>{log ? "Login" : "Create Account"}</Title>
+                <h3 className="title">{log ? "Login" : "Create Account"}</h3>
                 <Form onSubmit={handleLogin} style={{ background: "white" }} className={styles.formArea}>
                     <Input
                         type="email"
@@ -65,6 +64,7 @@ const Login = ({ log }) => {
                                 value={formData.name}
                                 onChange={(e) => handleChange("name", e.target.value)}
                                 placeholder="name"
+                                error={errors?.name}
                             />
                         </>
                     )}
