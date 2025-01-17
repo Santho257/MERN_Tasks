@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../../constants";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Section from "../../ui/Section/Section";
 
 const ReadBlog = () => {
+    const navi = useNavigate();
     const [content, setContent] = useState([]);
     const { id } = useParams();
     const [title, setTitle] = useState("");
@@ -24,8 +25,9 @@ const ReadBlog = () => {
             setTitle(response.data.data.title);
         } catch (error) {
             console.log(error);
-            console.log(error.errors)
-            alert(error.message);
+            if(error.response?.data?.status == 404) navi("/404")
+            console.log(error.response.data.errors)
+
         }
     }
 
