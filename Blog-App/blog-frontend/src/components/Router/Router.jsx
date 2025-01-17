@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import AllBlogs from '../AllBlogs/AllBlogs'
 import RequireAuth from '../RequireAuth/RequireAuth'
 import Login from '../Login/Login'
+import ReadBlog from '../ReadBlog/ReadBlog'
 
 const Router = () => {
 	return (
@@ -12,7 +13,7 @@ const Router = () => {
 			<Route exact path='/signin' element={<Login log={true} />} />
 			<Route exact path='/signup' element={<Login />} />
 			<Route element={<RequireAuth />}>
-				<Route exact path='/blogs/:id' element={<p>Reading blog</p>} />
+				<Route exact path='/blogs/:id' element={<ReadBlog/>} />
 			</Route>
 		</Routes>
 	)
