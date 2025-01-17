@@ -39,7 +39,7 @@ const Login = ({ log }) => {
             login(result.data.data.token);
             navi(-1);
         } catch (err) {
-            setErrors(err.response);
+            setErrors(err.response.data.errors);
         }
     };
     return (
