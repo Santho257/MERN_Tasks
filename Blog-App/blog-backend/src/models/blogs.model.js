@@ -14,6 +14,10 @@ const BlogSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    displayImage: {
+        type: String, 
+        default: "https://www.ctdatahaven.org/sites/ctdatahaven/themes/ctdatahaven/img/default-blog.png",
+    },
     content: [
         {
             type: {
