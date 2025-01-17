@@ -31,6 +31,6 @@ app.use(
 );
 
 app.use(`${BASE_URL}/auth`, AuthRouter);
-app.use(`${BASE_URL}/blogs`, requireAuth,BlogRouter);
+app.use(`${BASE_URL}/blogs`, BlogRouter);
 
 export default app;
