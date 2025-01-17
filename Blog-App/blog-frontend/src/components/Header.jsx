@@ -5,10 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   const {user, logout} = useContext(AuthContext);
-  useEffect(() => {
-    console.log("Header");
-    
-  },[])
+  
   return (
     <header>
         <h3 className='logo'>Own Thoughts</h3>
