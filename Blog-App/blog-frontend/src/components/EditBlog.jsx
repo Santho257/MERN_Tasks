@@ -1,91 +1,95 @@
 import axios from "axios";
-import React, { createRef, useEffect, useRef, useState } from "react";
+import React, { createRef, useContext, useEffect, useState } from "react";
 import ContentEditable from "react-contenteditable";
 import sanitize from "sanitize-html";
 import { BASE_URL } from "../constants";
 import { debounce } from "../utils/debounce";
+import { useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import Section from "../ui/Section/Section";
+import Button from "../ui/Button/Button";
 
-const BlogArea = ({ id }) => {
+const EditBlog = () => {
+    const navi = useNavigate();
+    const { user } = useContext(AuthContext);
     const [content, setContent] = useState([]);
     const [edited, setEdited] = useState([]);
-    const [blogId, setBlogId] = useState(id);
-    const [title, setTitle] = useState("");
+    const [published, setPublished] = useState(false);
+    const { id } = useParams();
+    const [title, setTitle] = useState(null);
     const [count, setCount] = useState(0);
     const [focIndex, setFocIndex] = useState(0);
     const focRef = createRef();
 
     useEffect(() => {
-        updateBlog();
+        if (edited.length != 0)
+            updateBlog();
     }, [edited]);
 
     useEffect(() => {
-        console.log("fetchBlog")
+        if (title !== null) {
+            updateTitle()
+        }
+    }, [title])
+
+    useEffect(() => {
         fetchBlog();
-    }, [blogId, count]);
+    }, [id, count]);
 
     useEffect(() => {
         const textElem = focRef.current?.childNodes[0];
         if (textElem) {
             textElem.focus();
-            const range = document.createRange(); // Create a range object
-            const selection = window.getSelection(); // Get the current selection object
-            range.selectNodeContents(textElem); // Select all contents of the element
-            range.collapse(false); // Collapse the range to the end of the content
-            selection.removeAllRanges(); // Remove any previous selection
+            const range = document.createRange();
+            const selection = window.getSelection();
+            range.selectNodeContents(textElem);
+            range.collapse(false);
+            selection.removeAllRanges();
             selection.addRange(range);
         }
     }, [focIndex]);
 
     const fetchBlog = async () => {
-        if (blogId) fetchBlogWithId();
-        else {
-            try {
-                const create = await axios.post(`${BASE_URL}/blogs`, {
-                    title: "New Blog",
-                    content: [{
-                        type: "para",
-                        value: ""
-                    }]
-                }, {
-                    headers: {
-                        Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3ODc2NzdkMDg1Nzk1YmJmNzFkNTI0MyIsInN1YiI6IlRlc3QgVXNlciJ9.N0hVIZ-S4jvaL6k_uN4J1zP6FdPCxcdt7cqkgxreEdY"
-                    }
-                });
-                setBlogId(create.data.data.id);
-            } catch (error) {
-                console.log(error);
-                console.log(error.errors)
-                alert(error.message);
-            }
-        }
-    }
-
-    const fetchBlogWithId = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/blogs/${blogId}`, {
+            const response = await axios.get(`${BASE_URL}/blogs/${id}`, {
                 headers: {
-                    Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3ODc2NzdkMDg1Nzk1YmJmNzFkNTI0MyIsInN1YiI6IlRlc3QgVXNlciJ9.N0hVIZ-S4jvaL6k_uN4J1zP6FdPCxcdt7cqkgxreEdY"
+                    Authorization: `Bearer ${user.token}`
                 }
             });
             setContent(response.data.data.content);
             setTitle(response.data.data.title);
-            setFocIndex(content.length - 1);
+            setPublished(response.data.data.published); 
         } catch (error) {
             console.log(error);
-            console.log(error.errors)
-            alert(error.message);
+            console.log(error.errors);
+            if (error.response?.data?.status == 404) navi("/404")
+        }
+    }
+
+    const updateTitle = async () => {
+        try {
+            const response = await axios.patch(`${BASE_URL}/blogs/${id}`, { title }, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })
+            if (response.data.success) {
+                setCount(count + 1);
+            }
+        }
+        catch (error) {
+            console.log(error); 
         }
     }
 
     const updateBlog = async () => {
-        if(!blogId) return;
         try {
-            const response = await axios.patch(`${BASE_URL}/blogs/${blogId}`, { content: edited }, {
+            const response = await axios.patch(`${BASE_URL}/blogs/${id}`, { content:edited }, {
                 headers: {
-                    Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3ODc2NzdkMDg1Nzk1YmJmNzFkNTI0MyIsInN1YiI6IlRlc3QgVXNlciJ9.N0hVIZ-S4jvaL6k_uN4J1zP6FdPCxcdt7cqkgxreEdY"
+                    Authorization: `Bearer ${user.token}`
                 }
             })
-            if(response.data.success){
+            if (response.data.success) {
                 setCount(count + 1);
             }
         }
@@ -117,7 +121,6 @@ const BlogArea = ({ id }) => {
     }
 
     const changeType = (e, i) => {
-        console.log(content)
         content[i].type = e.target.value;
         setEdited([...content])
     }
@@ -154,19 +157,51 @@ const BlogArea = ({ id }) => {
             setEdited([...content]);
         }
         catch (err) {
-            alert("Error in file Uploading");
             console.error(err);
+        }
+    }
+
+    const publish = async () => {
+        try {
+            const response = await axios.patch(`${BASE_URL}/blogs/${id}`, { published: !published }, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })
+            if (response.data.success) {
+                setPublished(prev => !prev);
+            }
+        }
+        catch (error) {
+
+        }
+    }
+    const deleteBlog = async () => {
+        const confirmation = confirm("The blog will be permanently deleted! If you don't want it try to unpublish!")
+        if (!confirmation) return;
+        try {
+            const response = await axios.delete(`${BASE_URL}/blogs/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })
+            if (response.data.success) {
+                navi("/blogs")
+            }
+        }
+        catch (error) {
+            console.log(error.response)
         }
     }
 
     return (
         <>
-            <section id="blog-area">
+            <Section id="blog-area">
                 <ContentEditable
                     className="title"
                     tagName="h3"
-                    html={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    html={title ?? ""}
+                    onChange={debounce((e) => setTitle(e.target.value), 500)}
                     onKeyDown={(e) => {
                         if (e.code == "Enter") {
                             e.preventDefault();
@@ -176,7 +211,7 @@ const BlogArea = ({ id }) => {
                     }}
                 />
                 {content.map((con, i) => (
-                    <section className="content" key={content.id || i}>
+                    <Section className="content" key={content.id || i}>
                         <article onChange={(e) => changeType(e, i)} className="type-area">
                             <input type="radio" name={`type${i}`} value="para" />Paragraph
                             <input type="radio" name={`type${i}`} value="heading" />Heading
@@ -206,14 +241,14 @@ const BlogArea = ({ id }) => {
                                         html={con.value}
                                         tagName="i"
                                         onChange={(e) => handleTextChange(e, i)}
-                                        onKeyDown={(e) => handleEnter(e, i)}
+                                        onKeyDown={(e) =>{ handleEnter(e, i)}}
                                     />
                                 </p>
                             ) : (
                                 con.value != "" ?
-                                    <section className="blog-img">
+                                    <Section style={{ width: "80%" }} className="blog-img">
                                         <img src={con.value} alt="It should be an image" />
-                                    </section>
+                                    </Section>
                                     :
                                     <input type="file" accept="image/*" onChange={(e) => handleImageChange(e, i)} />
                             )}
@@ -230,11 +265,15 @@ const BlogArea = ({ id }) => {
                         >
                             -
                         </button>
-                    </section>
+                    </Section>
                 ))}
-            </section>
+                <Section>
+                    <Button style={{ backgroundColor: "green" }} onClick={publish}>{published ? "Unpublish" : "Publish"}</Button>
+                    <Button style={{ backgroundColor: "red" }} onClick={deleteBlog}>Delete</Button>
+                </Section>
+            </Section>
         </>
     );
 };
 
-export default BlogArea;
+export default EditBlog;
