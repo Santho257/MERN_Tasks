@@ -2,9 +2,9 @@ import { createContext, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const AuthContext = createContext(initial);
+export const AuthContext = createContext();
 
-const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({ children }) => {
     const initial = {
         token: JSON.parse(sessionStorage.getItem("blog-user"))?.token || ""
     }
@@ -24,5 +24,3 @@ const AuthContextProvider = ({ children }) => {
 
     return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>
 }
-
-export { AuthContext, AuthContextProvider };
