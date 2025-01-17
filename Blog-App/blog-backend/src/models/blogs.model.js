@@ -7,8 +7,7 @@ const BlogSchema = new Schema({
     title: {
         type: String,
         trim: true,
-        index: true,
-        required: [true, "Title is required"],
+        index: true
     },
     published: {
         type: Boolean,
