@@ -28,7 +28,7 @@ const AllBlogs = () => {
                 const shortDesc = blog.content.filter((con) => con.type != "image")
                     .reduce((prev, curr) => prev + curr.value, "").slice(0, 200);
 
-                return <section className={styles.card} key={blog.author}>
+                return <section className={styles.card} key={blog.id}>
                     <section className={styles.cardImgArea}>
                         <img className={styles.cardImg} src={blog.displayImage} alt='Display Image' />
                     </section>
