@@ -1,7 +1,7 @@
 import { ObjectId } from "bson";
 import { model, Schema } from "mongoose";
 import User from "./users.model.js";
-import ApiError from "../utils/ApiError";
+import ApiError from "../utils/ApiError.js";
 
 const BlogSchema = new Schema({
     title: {
@@ -17,10 +17,13 @@ const BlogSchema = new Schema({
     content: [
         {
             type: {
-                type: "enum",
+                type: String,
                 trim: true,
                 lowercase: true,
-                values: ["heading", "para", "image", "quote"],
+                enum: {
+                    values: ["heading", "para", "image", "quote"],
+                    message: "{VALUE} is not a blog component"
+                }
             },
             value: {
                 type: String,
