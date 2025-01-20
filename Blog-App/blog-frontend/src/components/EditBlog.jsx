@@ -9,6 +9,7 @@ import Section from "../ui/Section/Section";
 import Button from "../ui/Button/Button";
 import { toast, ToastContainer, Zoom } from "react-toastify";
 
+
 const EditBlog = () => {
     const navi = useNavigate();
     const { user } = useContext(AuthContext);
@@ -24,7 +25,6 @@ const EditBlog = () => {
     useEffect(() => {
         fetchBlog();
     }, [id, count]);
-
 
     const fetchBlog = async () => {
         try {
