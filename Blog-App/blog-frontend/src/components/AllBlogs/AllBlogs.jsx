@@ -3,10 +3,11 @@ import Section from '../../ui/Section/Section'
 import styles from './AllBlogs.module.css'
 // import { blogData } from '../../mockData/AllBlogs';
 import { BASE_URL } from '../../constants'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const AllBlogs = () => {
+    const { authorId } = useParams();
     const navi = useNavigate();
     const [blogs, setBlogs] = useState([]);
     useEffect(() => {
@@ -15,7 +16,7 @@ const AllBlogs = () => {
 
     const fetchBlogs = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/blogs`);
+            const response = await axios.get(`${BASE_URL}/blogs${(authorId) ? `/authors/${authorId}` : ""}`);
             setBlogs(response.data.data);
         } catch (error) {
             console.log(error.response?.data)

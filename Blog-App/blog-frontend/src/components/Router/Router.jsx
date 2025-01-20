@@ -21,6 +21,7 @@ const Router = () => {
 			<Route element={<RequireAuth />}>
 				<Route exact path='/blogs/:id' element={<ReadBlog />} />
 				<Route exact path='/blogs/new' element={<NewBlog />} />
+				<Route exact path='/blogs/author/:authorId' element={<AllBlogs />} />
 				<Route element={<EditAuthority />}>
 					<Route exact path='/blogs/:id/edit' element={<EditBlog />} />
 				</Route>
