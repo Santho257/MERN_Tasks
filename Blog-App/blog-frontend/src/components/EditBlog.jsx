@@ -7,13 +7,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Section from "../ui/Section/Section";
 import Button from "../ui/Button/Button";
+import { toast, ToastContainer, Zoom } from "react-toastify";
 
 const EditBlog = () => {
     const navi = useNavigate();
     const { user } = useContext(AuthContext);
     const [content, setContent] = useState([]);
     const [published, setPublished] = useState(false);
-    const [changes, setChanges] = useState(false);
+    const [displayImage, setDisplayImage] = useState(false);
     const { id } = useParams();
     const [title, setTitle] = useState(null);
     const [count, setCount] = useState(0);
@@ -24,7 +25,7 @@ const EditBlog = () => {
         fetchBlog();
     }, [id, count]);
 
-    
+
     const fetchBlog = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/blogs/${id}`, {
@@ -34,12 +35,13 @@ const EditBlog = () => {
             });
             setContent(response.data.data.content);
             setTitle(response.data.data.title);
-            setPublished(response.data.data.published); 
+            setPublished(response.data.data.published);
+            setDisplayImage(response.data.data.displayImage || "");
         } catch (error) {
             console.log(error);
             console.log(error.errors);
             if (error.response?.data?.status == 404) navi("/404")
-            }
+        }
     }
 
     useEffect(() => {
@@ -57,16 +59,38 @@ const EditBlog = () => {
 
     const updateBlog = async () => {
         try {
-            const response = await axios.patch(`${BASE_URL}/blogs/${id}`, { title, content }, {
+            const response = await axios.patch(`${BASE_URL}/blogs/${id}`, { title, content, displayImage }, {
                 headers: {
                     Authorization: `Bearer ${user.token}`
                 }
             })
             if (response.data.success) {
+                toast.success("Blog saved successfully", {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Zoom,
+                });
                 setCount(count + 1);
             }
         }
         catch (error) {
+            toast.error('error.message', {
+                position: "bottom-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Zoom,
+            });
             console.log(error.errors);
         }
     }
@@ -142,6 +166,32 @@ const EditBlog = () => {
                 }
             })
             if (response.data.success) {
+                if (published) {
+                    toast.info('Unpublished', {
+                        position: "bottom-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Zoom,
+                    });
+                }
+                else {
+                    toast.success('Published Successfully', {
+                        position: "bottom-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Zoom,
+                    });
+                }
                 setPublished(prev => !prev);
             }
         }
@@ -213,13 +263,16 @@ const EditBlog = () => {
                                         html={con.value}
                                         tagName="i"
                                         onChange={(e) => handleTextChange(e, i)}
-                                        onKeyDown={(e) =>{ handleEnter(e, i)}}
+                                        onKeyDown={(e) => { handleEnter(e, i) }}
                                     />
                                 </p>
                             ) : (
                                 con.value != "" ?
                                     <Section style={{ width: "80%" }} className="blog-img">
                                         <img src={con.value} alt="It should be an image" />
+                                        {displayImage != con.value && <p className="right-align" onClick={() =>{
+                                            setDisplayImage(con.value);
+                                        }}>Set as Display Image</p>}
                                     </Section>
                                     :
                                     <input type="file" accept="image/*" onChange={(e) => handleImageChange(e, i)} />
@@ -240,11 +293,15 @@ const EditBlog = () => {
                     </Section>
                 ))}
                 <Section>
+                    <Button onClick={() => {
+                        navi(-1)
+                    }}>BACK</Button>
                     <Button style={{ backgroundColor: "green" }} onClick={publish}>{published ? "Unpublish" : "Publish"}</Button>
                     <Button style={{ backgroundColor: "green" }} onClick={updateBlog}>Save</Button>
                     <Button style={{ backgroundColor: "red" }} onClick={deleteBlog}>Delete</Button>
                 </Section>
             </Section>
+            <ToastContainer />
         </>
     );
 };
