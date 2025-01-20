@@ -109,3 +109,14 @@ header nav ul li {
 .content:hover .type-area{
   display: block;
 }
+
+.right-align{
+  width: 100%;
+  text-align: right;
+  position: absolute;
+  top: 0;
+  right: 3rem;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}

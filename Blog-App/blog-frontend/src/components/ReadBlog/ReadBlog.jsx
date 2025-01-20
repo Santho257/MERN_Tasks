@@ -40,7 +40,7 @@ const ReadBlog = () => {
         <>
             <Section id="blog-area">
                 <h3 className="title">{title}</h3>
-                {author == jwtDecode(user.token).id && <Link to="edit">Edit</Link>}
+                {author == jwtDecode(user.token).id && <Link to="edit"><p className="right-align">Edit</p></Link>}
                 {content.map((con, i) => (
                     <Section className="content" key={content.id || i}>
                         {con.type == "heading" ? (
