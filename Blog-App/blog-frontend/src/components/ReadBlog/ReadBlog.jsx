@@ -1,11 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BASE_URL } from "../../constants";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Section from "../../ui/Section/Section";
+import { AuthContext } from "../../context/AuthContext";
+import { jwtDecode } from "jwt-decode";
 
 const ReadBlog = () => {
     const navi = useNavigate();
+    const {user} = useContext(AuthContext);
+    const [author, setAuthor] = useState("");
     const [content, setContent] = useState([]);
     const { id } = useParams();
     const [title, setTitle] = useState("");
@@ -22,6 +26,7 @@ const ReadBlog = () => {
                 }
             });
             setContent(response.data.data.content);
+            setAuthor(response.data.data.author)
             setTitle(response.data.data.title);
         } catch (error) {
             console.log(error);
@@ -35,7 +40,7 @@ const ReadBlog = () => {
         <>
             <Section id="blog-area">
                 <h3 className="title">{title}</h3>
-                
+                {author == jwtDecode(user.token).id && <Link to="edit">Edit</Link>}
                 {content.map((con, i) => (
                     <Section className="content" key={content.id || i}>
                         {con.type == "heading" ? (
