@@ -35,7 +35,7 @@ const Login = ({ log }) => {
                 result = await axios.post(`${BASE_URL}/auth/signup`, formData);
             }
             login(result.data.data.token);
-            navi(-1);
+            navi("/blogs");
         } catch (err) {
             console.log(err.response)
             setErrors(err.response.data.errors);
