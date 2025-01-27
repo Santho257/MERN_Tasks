@@ -28,7 +28,7 @@ taskListSchema.pre("save", async function (next) {
 taskListSchema.set("toJSON", { virtuals: true });
 taskListSchema.set("toObject", { virtuals: true });
 
-taskListSchema.ObjectIdvirtual("tasks", {
+taskListSchema.virtual("tasks", {
     ref: "Tasks",
     localField: "_id",
     foreignField: "belongsTo"
