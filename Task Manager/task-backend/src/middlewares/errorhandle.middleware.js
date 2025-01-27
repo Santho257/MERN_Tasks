@@ -1,3 +1,6 @@
+import { MongooseError } from "mongoose";
+import ApiError from "../utils/ApiError.js";
+
 const errorHandler = (error, req, res, next) => {
     if(error.name == "ValidationError"){
         const errors = {};
