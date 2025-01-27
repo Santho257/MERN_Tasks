@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import ApiError from "../utils/ApiError.js";
+import { User } from "./user.model.js";
 const taskListSchema = new Schema({
     title: {
         type: String,
@@ -30,7 +31,7 @@ taskListSchema.set("toJSON", { virtuals: true });
 taskListSchema.set("toObject", { virtuals: true });
 
 taskListSchema.virtual("tasks", {
-    ref: "Tasks",
+    ref: "Task",
     localField: "_id",
     foreignField: "belongsTo"
 });
