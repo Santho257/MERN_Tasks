@@ -1,4 +1,5 @@
 import { decode } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { JWT_EXPIRES_IN, JWT_SECRET } from "../constants.js";
 
 export const generateToken = (user) => {

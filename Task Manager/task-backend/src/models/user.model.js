@@ -1,5 +1,6 @@
-import { compareSync, genSaltSync } from "bcrypt";
+import { compareSync, genSaltSync, hashSync } from "bcrypt";
 import { model, Schema } from "mongoose";
+import ApiError from "../utils/ApiError.js";
 
 
 const userSchema = new Schema({
@@ -26,7 +27,7 @@ const userSchema = new Schema({
         type: String,
         required: [true, "Password is required"],
         validate: {
-            validator: (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password),
+            validator: (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!#$%^&*()])[a-zA-Z\d@!#$%^&*()]{8,}$/.test(password),
             message: props => `${props.value} is not a valid password!`
         }
     },
