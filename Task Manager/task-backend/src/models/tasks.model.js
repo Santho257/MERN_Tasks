@@ -19,7 +19,11 @@ const taskSchema = new Schema({
     },
     deadline: {
         type: Date,
-        required: [true, "Deadline is required"]
+        required: [true, "Deadline is required"],
+        validate: {
+            validator: deadline => deadline > Date.now(),
+            message: props => `${props.value} is not a valid deadline!`
+        }
     },
     completedAt: {
         type: Date
