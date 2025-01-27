@@ -3,9 +3,9 @@ import { addTask, deleteTask, getTaskById, updateTask } from "../controllers/tas
 
 const TaskRouter = Router();
 
-TaskRouter.route("/").post(addTask);
-TaskRouter.route("/:id").get(getTaskById);
-TaskRouter.route("/:id").patch(updateTask);
-TaskRouter.route("/:id").delete(deleteTask);
+TaskRouter.route("/:tlid").post(addTask);
+TaskRouter.route("/:tlid/:id").get(getTaskById);
+TaskRouter.route("/:tlid/:id").patch(updateTask);
+TaskRouter.route("/:tlid/:id").delete(deleteTask);
 
 export default TaskRouter;

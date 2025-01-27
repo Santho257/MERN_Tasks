@@ -33,7 +33,7 @@ app.use(
 
 app.use(`${BASE_URL}/auth`, AuthRouter);
 app.use(`${BASE_URL}/tasklists`, requireAuth, TaskListRouter);
-app.use(`${BASE_URL}/:tlid/tasks`, requireAuth, TaskRouter);
+app.use(`${BASE_URL}/tasks`, requireAuth, TaskRouter);
 
 app.use(errorHandler);
 export default app;
