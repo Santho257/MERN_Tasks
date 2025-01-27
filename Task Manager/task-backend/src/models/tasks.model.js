@@ -41,4 +41,4 @@ taskSchema.pre("save", async function (next) {
     next();
 });
 
-const Task = model("Task", taskSchema);
+export const Task = model("Task", taskSchema);
