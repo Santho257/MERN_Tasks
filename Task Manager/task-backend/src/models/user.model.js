@@ -43,6 +43,28 @@ userSchema.virtual("myTaskLists", {
     ref: "TaskList",
     localField: "_id",
     foreignField: "createdBy"
-})
+});
+
+userSchema.statics.login = async function  (email, password){
+    if (!email) {
+        throw new ApiError(400, "Email is Required", {
+            email: "email is required",
+        });
+    }
+    if (!password) {
+        throw new ApiError(400, "Password is required", {
+            password: "password is required",
+        });
+    }
+    const user = await this.findOne({ email });
+    if (!user) {
+        throw new ApiError(400, "No user found", { email: `${email} not found` });
+    }
+    const isMatch = compareSync(password, user.password);
+    if (!isMatch) {
+        throw new ApiError(400, "Invalid password", { password: "Password is incorrect" });
+    }
+    return user;
+};
 
 export const User = model("User", userSchema);
