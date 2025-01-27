@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import logger from './config/logger.config.js';
 import TaskListRouter from './routes/tasklist.route.js';
 import { requireAuth } from './middlewares/requireauth.middleware.js';
+import TaskRouter from './routes/task.route.js';
 
 const morganFormat = ":method :url :status :response-time ms";
 
@@ -32,6 +33,7 @@ app.use(
 
 app.use(`${BASE_URL}/auth`, AuthRouter);
 app.use(`${BASE_URL}/tasklists`, requireAuth, TaskListRouter);
+app.use(`${BASE_URL}/:tlid/tasks`, requireAuth, TaskRouter);
 
 app.use(errorHandler);
 export default app;
