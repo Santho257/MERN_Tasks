@@ -6,3 +6,5 @@ class ApiResponse{
         this.success = this.status >= 200 && this.status < 400;
     }
 }
+
+export default ApiResponse;
