@@ -1,5 +1,6 @@
-const { hashSync } = require("bcrypt");
-const { Schema, model } = require("mongoose");
+import { compareSync, genSaltSync } from "bcrypt";
+import { model, Schema } from "mongoose";
+
 
 const userSchema = new Schema({
     name: {
