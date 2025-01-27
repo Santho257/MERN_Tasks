@@ -1,5 +1,5 @@
 import { Task } from "../models/tasks.model.js";
-import ApiResponse from "../utils/ApiResponse";
+import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asynHandler.js";
 
 const addTask = asyncHandler(async (req, res, next) => {

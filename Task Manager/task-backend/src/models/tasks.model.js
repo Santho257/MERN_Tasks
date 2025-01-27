@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { TaskList } from "./tasklist.model";
+import { TaskList } from "./tasklist.model.js";
 
 const taskSchema = new Schema({
     description: {
