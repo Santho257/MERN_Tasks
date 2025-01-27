@@ -1,0 +1,37 @@
+{
+  "name": "task-backend",
+  "version": "1.0.0",
+  "description": "A task management app, which stores users tasks and its status",
+  "keywords": [
+    "express",
+    "node",
+    "mocha",
+    "task",
+    "backend"
+  ],
+  "license": "ISC",
+  "author": "Santhoshkumar J V",
+  "type": "module",
+  "main": "./src/index.js",
+  "scripts": {
+    "dev": "NODE_ENV=dev nodemon ./src/index.js",
+    "test": "NODE_ENV=test mocha ./test/**/*.js",
+    "start": "node ./src/index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "morgan": "^1.10.0",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "chai-http": "^5.1.1",
+    "dotenv": "^16.4.7",
+    "mocha": "^11.1.0",
+    "nodemon": "^3.1.9"
+  }
+}
